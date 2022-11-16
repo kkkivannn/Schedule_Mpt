@@ -19,8 +19,8 @@ class ScheduleBuilder extends StatelessWidget {
       builder: (context, state) {
         return state.when(
           notHaveSchedule: () => isNotHaveSchedule(context),
-          haveSchedule: (scheduleEntiti) =>
-              isHaveSchedule(context, scheduleEntiti, this),
+          haveSchedule: (scheduleModel) =>
+              isHaveSchedule(context, scheduleModel, this),
           waiting: () => isWaiting(context),
           error: (erroe) => isNotHaveSchedule(context),
         );

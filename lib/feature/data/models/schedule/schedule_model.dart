@@ -6,7 +6,7 @@ import 'subjects_model.dart';
 part 'schedule_model.freezed.dart';
 part 'schedule_model.g.dart';
 @freezed
-class ScheduleModel with _$ScheduleModel {
+class ScheduleModel extends ScheduleEntiti with _$ScheduleModel {
   const factory ScheduleModel({
     required final InfoModel info,
     required final List<SubjectsModel> subjects,

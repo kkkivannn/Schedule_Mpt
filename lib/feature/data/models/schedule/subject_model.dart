@@ -3,7 +3,7 @@ import 'package:schedule_mpt/feature/domain/entiti/schedule/subject_entiti.dart'
 part 'subject_model.freezed.dart';
 part 'subject_model.g.dart';
 @freezed
-class SubjectModel with _$SubjectModel{
+class SubjectModel extends SubjectEntiti with _$SubjectModel{
   const factory SubjectModel({
     required final String subject,
     required final String week,
