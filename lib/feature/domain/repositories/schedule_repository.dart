@@ -1,10 +1,10 @@
 import 'package:dartz/dartz.dart';
 import 'package:schedule_mpt/core/error/failure.dart';
-import 'package:schedule_mpt/feature/domain/entiti/groups_entiti.dart';
-import 'package:schedule_mpt/feature/domain/entiti/replacement_entiti.dart';
-import 'package:schedule_mpt/feature/domain/entiti/schedule/schedule_entiti.dart';
-import 'package:schedule_mpt/feature/domain/entiti/specialities_entiti.dart';
-import 'package:schedule_mpt/feature/domain/entiti/week_entiti.dart';
+import 'package:schedule_mpt/feature/domain/entiti/schedule/groups/groups_entiti.dart';
+import 'package:schedule_mpt/feature/domain/entiti/schedule/replacement/replacement_entiti.dart';
+import 'package:schedule_mpt/feature/domain/entiti/schedule/schedule_entiti/schedule_entiti.dart';
+import 'package:schedule_mpt/feature/domain/entiti/schedule/specialities/specialities_entiti.dart';
+import 'package:schedule_mpt/feature/domain/entiti/schedule/week/week_entiti.dart';
 
 abstract class ScheduleRepository {
   Future<Either<Failure, WeekEntiti>> getWeek(String endpoint);

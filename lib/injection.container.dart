@@ -1,6 +1,4 @@
 import 'package:get_it/get_it.dart';
-import 'package:schedule_mpt/feature/data/datasource/local_datasource/schedule_local_datasource.dart';
-import 'package:schedule_mpt/feature/data/datasource/local_datasource/schedule_local_datasource_implements.dart';
 import 'package:schedule_mpt/feature/data/datasource/remote_datasource/schedule_remote_datasource.dart';
 import 'package:schedule_mpt/feature/data/repository/schedule_implement.dart';
 import 'package:schedule_mpt/feature/domain/repositories/schedule_repository.dart';
@@ -33,6 +31,4 @@ Future<void> init() async {
   //Datasource
   sl.registerLazySingleton<ScheduleRemoteDatasource>(
       () => ScheduleRemoteDatasourceImplement());
-  sl.registerLazySingleton<ScheduleLocalDatasource>(
-      () => ScheduleLocalDatasourceImplements());
 }

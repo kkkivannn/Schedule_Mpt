@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:schedule_mpt/feature/domain/entiti/specialities_entiti.dart';
+import 'package:schedule_mpt/feature/domain/entiti/schedule/specialities/specialities_entiti.dart';
 
 abstract class SpecialitiesState extends Equatable {
   @override

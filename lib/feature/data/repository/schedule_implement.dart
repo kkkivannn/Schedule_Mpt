@@ -1,16 +1,15 @@
 import 'package:schedule_mpt/feature/data/datasource/remote_datasource/schedule_remote_datasource.dart';
-import 'package:schedule_mpt/feature/data/models/groups_model.dart';
-import 'package:schedule_mpt/feature/data/models/replacement_model.dart';
-import 'package:schedule_mpt/feature/data/models/schedule/schedule_model.dart';
-import 'package:schedule_mpt/feature/data/models/specialities_model.dart';
-import 'package:schedule_mpt/feature/data/models/week_model.dart';
-import 'package:schedule_mpt/feature/domain/entiti/replacement_entiti.dart';
-import 'package:schedule_mpt/feature/domain/entiti/specialities_entiti.dart';
-import 'package:schedule_mpt/feature/domain/entiti/schedule/schedule_entiti.dart';
-import 'package:schedule_mpt/feature/domain/entiti/groups_entiti.dart';
-import 'package:schedule_mpt/feature/domain/entiti/week_entiti.dart';
+import 'package:schedule_mpt/feature/data/dto/groups/groups_dto.dart';
+import 'package:schedule_mpt/feature/data/dto/replacement/replacement_dto.dart';
+import 'package:schedule_mpt/feature/data/dto/schedule/schedule/schedule_dto.dart';
+import 'package:schedule_mpt/feature/data/dto/specialities/specialities_dto.dart';
+import 'package:schedule_mpt/feature/data/dto/week/week_dto.dart';
+import 'package:schedule_mpt/feature/domain/entiti/schedule/replacement/replacement_entiti.dart';
+import 'package:schedule_mpt/feature/domain/entiti/schedule/specialities/specialities_entiti.dart';
+import 'package:schedule_mpt/feature/domain/entiti/schedule/groups/groups_entiti.dart';
 import 'package:schedule_mpt/core/error/failure.dart';
 import 'package:dartz/dartz.dart';
+import 'package:schedule_mpt/feature/domain/entiti/schedule/week/week_entiti.dart';
 import 'package:schedule_mpt/feature/domain/repositories/schedule_repository.dart';
 
 class ScheduleRepositoryImplement implements ScheduleRepository {
@@ -49,8 +48,8 @@ class ScheduleRepositoryImplement implements ScheduleRepository {
 
   
 
-  Future<Either<Failure, WeekModel>> _getWeek(
-      Future<WeekModel> Function() week) async {
+  Future<Either<Failure, WeekDto>> _getWeek(
+      Future<WeekDto> Function() week) async {
     try {
       final weekModel = await week();
       return Right(weekModel);
@@ -59,8 +58,8 @@ class ScheduleRepositoryImplement implements ScheduleRepository {
     }
   }
 
-  Future<Either<Failure, GroupsModel>> _getGroups(
-      Future<GroupsModel> Function() groups) async {
+  Future<Either<Failure, GroupsDto>> _getGroups(
+      Future<GroupsDto> Function() groups) async {
     try {
       final groupsModel = await groups();
       return Right(groupsModel);
@@ -69,8 +68,8 @@ class ScheduleRepositoryImplement implements ScheduleRepository {
     }
   }
 
-  Future<Either<Failure, ReplacementModel>> _getReplacement(
-      Future<ReplacementModel> Function() replacement) async {
+  Future<Either<Failure, ReplacementDto>> _getReplacement(
+      Future<ReplacementDto> Function() replacement) async {
     try {
       final replacementModel = await replacement();
       return Right(replacementModel);
@@ -79,18 +78,18 @@ class ScheduleRepositoryImplement implements ScheduleRepository {
     }
   }
 
-  Future<Either<Failure, List<ScheduleModel>>> _getSchedule(
-      Future<List<ScheduleModel>> Function() schedule) async {
+  Future<Either<Failure, List<ScheduleDto>>> _getSchedule(
+      Future<List<ScheduleDto>> Function() schedule) async {
     try {
-      final scheduleModel = await schedule();
-      return Right(scheduleModel);
+      final scheduleDto = await schedule();
+      return Right(scheduleDto);
     } catch (_) {
       return Left(ServerFailure());
     }
   }
 
-  Future<Either<Failure, SpecialitiesModel>> _getSpecialities(
-      Future<SpecialitiesModel> Function() specialities) async {
+  Future<Either<Failure, SpecialitiesDto>> _getSpecialities(
+      Future<SpecialitiesDto> Function() specialities) async {
     try {
       final specialitiesModel = await specialities();
       return Right(specialitiesModel);

@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:schedule_mpt/feature/domain/entiti/groups_entiti.dart';
+import 'package:schedule_mpt/feature/domain/entiti/schedule/groups/groups_entiti.dart';
 
 abstract class GroupsState extends Equatable {
   @override

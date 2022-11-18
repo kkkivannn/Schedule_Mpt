@@ -5,11 +5,16 @@ import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:schedule_mpt/constants.dart';
 import 'package:schedule_mpt/core/error/exception.dart';
 import 'package:schedule_mpt/feature/data/datasource/remote_datasource/schedule_remote_datasource.dart';
-import 'package:schedule_mpt/feature/data/models/groups_model.dart';
-import 'package:schedule_mpt/feature/data/models/replacement_model.dart';
-import 'package:schedule_mpt/feature/data/models/schedule/schedule_model.dart';
-import 'package:schedule_mpt/feature/data/models/specialities_model.dart';
-import 'package:schedule_mpt/feature/data/models/week_model.dart';
+import 'package:schedule_mpt/feature/data/dto/groups/groups_dto.dart';
+import 'package:schedule_mpt/feature/data/dto/replacement/replacement_dto.dart';
+import 'package:schedule_mpt/feature/data/dto/schedule/schedule/schedule_dto.dart';
+import 'package:schedule_mpt/feature/data/dto/specialities/specialities_dto.dart';
+import 'package:schedule_mpt/feature/data/dto/week/week_dto.dart';
+import 'package:schedule_mpt/feature/domain/entiti/schedule/groups/groups_entiti.dart';
+import 'package:schedule_mpt/feature/domain/entiti/schedule/replacement/replacement_entiti.dart';
+import 'package:schedule_mpt/feature/domain/entiti/schedule/schedule_entiti/schedule_entiti.dart';
+import 'package:schedule_mpt/feature/domain/entiti/schedule/specialities/specialities_entiti.dart';
+import 'package:schedule_mpt/feature/domain/entiti/schedule/week/week_entiti.dart';
 
 class ScheduleRemoteDatasourceImplement implements ScheduleRemoteDatasource {
   Dio _dio = Dio();
@@ -34,31 +39,31 @@ class ScheduleRemoteDatasourceImplement implements ScheduleRemoteDatasource {
   }
 
   @override
-  Future<GroupsModel> getGroups(String endpoint) async {
+  Future<GroupsEntiti> getGroups(String endpoint) async {
     final response = await _dio.get(endpoint);
     if (response.statusCode == 200) {
-      return GroupsModel.fromJson(response.data);
+      return GroupsDto.fromJson(response.data).toEntiti();
     } else {
       throw ServerException();
     }
   }
 
   @override
-  Future<ReplacementModel> getReplacement(String endpoint) async {
+  Future<ReplacementEntiti> getReplacement(String endpoint) async {
     final response = await _dio.get(endpoint);
     if (response.statusCode == 200) {
-      return ReplacementModel.fromJson(response.data);
+      return ReplacementDto.fromJson(response.data).toEntiti();
     } else {
       throw ServerException();
     }
   }
 
   @override
-  Future<List<ScheduleModel>> getSchedule(String endpoint) async {
+  Future<List<ScheduleEntiti>> getSchedule(String endpoint) async {
     final response = await _dio.get(endpoint);
     if (response.statusCode == 200) {
       return (response.data as List<dynamic>)
-          .map((json) => ScheduleModel.fromJson(json))
+          .map((json) => ScheduleDto.fromJson(json).toEntiti())
           .toList();
     } else {
       throw ServerException();
@@ -66,20 +71,20 @@ class ScheduleRemoteDatasourceImplement implements ScheduleRemoteDatasource {
   }
 
   @override
-  Future<SpecialitiesModel> getSpecialities(String endpoint) async {
+  Future<SpecialitiesEntiti> getSpecialities(String endpoint) async {
     final response = await _dio.get(endpoint);
     if (response.statusCode == 200) {
-      return SpecialitiesModel.fromJson(response.data);
+      return SpecialitiesDto.fromJson(response.data).toEntiti();
     } else {
       throw ServerException();
     }
   }
 
   @override
-  Future<WeekModel> getWeek(String endpoint) async {
+  Future<WeekEntiti> getWeek(String endpoint) async {
     final response = await _dio.get(endpoint);
     if (response.statusCode == 200) {
-      return WeekModel.fromJson(response.data);
+      return WeekDto.fromJson(response.data).toEntiti();
     } else {
       throw ServerException();
     }

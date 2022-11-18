@@ -256,8 +256,6 @@ abstract class _$$_ScheduleBuilderHaveScheduleCopyWith<$Res> {
       __$$_ScheduleBuilderHaveScheduleCopyWithImpl<$Res>;
   @useResult
   $Res call({ScheduleModel scheduleModel});
-
-  $ScheduleModelCopyWith<$Res> get scheduleModel;
 }
 
 /// @nodoc
@@ -281,14 +279,6 @@ class __$$_ScheduleBuilderHaveScheduleCopyWithImpl<$Res>
           : scheduleModel // ignore: cast_nullable_to_non_nullable
               as ScheduleModel,
     ));
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $ScheduleModelCopyWith<$Res> get scheduleModel {
-    return $ScheduleModelCopyWith<$Res>(_value.scheduleModel, (value) {
-      return _then(_value.copyWith(scheduleModel: value));
-    });
   }
 }
 
@@ -317,13 +307,14 @@ class _$_ScheduleBuilderHaveSchedule implements _ScheduleBuilderHaveSchedule {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_ScheduleBuilderHaveSchedule &&
-            (identical(other.scheduleModel, scheduleModel) ||
-                other.scheduleModel == scheduleModel));
+            const DeepCollectionEquality()
+                .equals(other.scheduleModel, scheduleModel));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, scheduleModel);
+  int get hashCode => Object.hash(
+      runtimeType, const DeepCollectionEquality().hash(scheduleModel));
 
   @JsonKey(ignore: true)
   @override

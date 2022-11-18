@@ -21,7 +21,7 @@ Map<String, dynamic> _$$_ScheduleBuilderNotHaveScheduleToJson(
 _$_ScheduleBuilderHaveSchedule _$$_ScheduleBuilderHaveScheduleFromJson(
         Map<String, dynamic> json) =>
     _$_ScheduleBuilderHaveSchedule(
-      ScheduleModel.fromJson(json['scheduleModel'] as Map<String, dynamic>),
+      json['scheduleModel'],
       $type: json['runtimeType'] as String?,
     );
 
