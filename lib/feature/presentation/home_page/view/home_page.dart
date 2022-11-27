@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:schedule_mpt/feature/domain/entiti/schedule/schedule_entiti/schedule_entiti.dart';
+import 'package:schedule_mpt/feature/domain/entiti/schedule/week/week_entiti.dart';
 
-import 'package:schedule_mpt/feature/domain/entiti/schedule/schedule_entiti.dart';
 
 class HomePage extends StatelessWidget {
   final List<ScheduleEntiti> schedule;
-  const HomePage({super.key, required this.schedule});
+  final WeekEntiti weekEntiti;
+  const HomePage({super.key, required this.schedule, required this.weekEntiti});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('data'),
+        centerTitle: true,
+        title: Text(weekEntiti.week),
       ),
       body: Center(
         child: Column(

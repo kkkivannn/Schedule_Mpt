@@ -50,8 +50,7 @@ class GroupsPage extends StatelessWidget {
                         return GroupsCard(
                           title: state.groupsEntiti.groups[index],
                           onTap: () {
-                            context.read<LoadingContainerCubit>().fetchSchedule(
-                                '/timetable/?groupname=${state.groupsEntiti.groups[index]}');
+                            context.read<LoadingContainerCubit>().fetchSchedule('/timetable/?groupname=${state.groupsEntiti.groups[index]}', '/week/');
                             Navigator.push(
                               context,
                               MaterialPageRoute(

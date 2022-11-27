@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:schedule_mpt/feature/domain/entiti/schedule/schedule_entiti.dart';
+import 'package:schedule_mpt/feature/domain/entiti/schedule/schedule_entiti/schedule_entiti.dart';
+import 'package:schedule_mpt/feature/domain/entiti/schedule/week/week_entiti.dart';
+import 'package:schedule_mpt/feature/presentation/components/schedule_builder.dart';
 import 'package:schedule_mpt/feature/presentation/groups_page.dart/view/groups_page.dart';
 import 'package:schedule_mpt/feature/presentation/home_page/view/home_page.dart';
-import 'package:schedule_mpt/feature/presentation/root_screen.dart/view/root_screen.dart';
 import 'package:schedule_mpt/feature/presentation/specialities_page.dart/view/specialities_page.dart';
 
 class RouteGenerator {
@@ -10,7 +11,7 @@ class RouteGenerator {
     switch (settings.name) {
       case '/':
         return MaterialPageRoute(
-          builder: (context) => const RootScreen(),
+          builder: (context) => const ScheduleBuilder(),
         );
       case '/SpecialitiesPage':
         return MaterialPageRoute(
@@ -28,9 +29,14 @@ class RouteGenerator {
         }
       case '/HomePage':
         final arguments = settings.arguments as Map<String, dynamic>;
-        if(arguments["schedule"] is List<ScheduleEntiti>){
-          return MaterialPageRoute(builder: (context) => HomePage(schedule: arguments['schedule']));
-        }else{
+        if (arguments["schedule"] is List<ScheduleEntiti> &&
+            arguments['week'] is WeekEntiti) {
+          return MaterialPageRoute(
+              builder: (context) => HomePage(
+                    schedule: arguments['schedule'],
+                    weekEntiti: arguments['week'],
+                  ));
+        } else {
           return _errorRoute();
         }
       // final arguments = settings.arguments as Map<String, dynamic>;

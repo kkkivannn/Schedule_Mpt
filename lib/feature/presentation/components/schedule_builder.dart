@@ -1,55 +1,42 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:schedule_mpt/feature/presentation/components/controller/schedule_builder_cubit.dart';
+import 'package:schedule_mpt/feature/presentation/hello_page/view/hello_page.dart';
+import 'package:schedule_mpt/feature/presentation/home_page/view/home_page.dart';
+
+import 'controller/schedule_builder_state.dart';
 
 class ScheduleBuilder extends StatelessWidget {
-  final WidgetBuilder isNotHaveSchedule;
-  final WidgetBuilder isWaiting;
-  final ValueWidgetBuilder isHaveSchedule;
   const ScheduleBuilder({
     Key? key,
-    required this.isNotHaveSchedule,
-    required this.isWaiting,
-    required this.isHaveSchedule,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<ScheduleBuilderCubit, ScheduleBuilderState>(
+    return BlocBuilder<ScheduleBuilderCubit, ScheduleBuilderState>(
       builder: (context, state) {
-        return state.when(
-          notHaveSchedule: () => isNotHaveSchedule(context),
-          haveSchedule: (scheduleModel) =>
-              isHaveSchedule(context, scheduleModel, this),
-          waiting: () => isWaiting(context),
-          error: (erroe) => isNotHaveSchedule(context),
-        );
-      },
-      listenWhen: ((previous, current) =>
-          previous.mapOrNull(
-            error: (value) => value,
-          ) !=
-          current.mapOrNull(
-            error: (value) => value,
-          )),
-      listener: (context, state) {
-        state.whenOrNull(
-          error: (error) => _showSnackBar(context, error),
-        );
+        if (state is IsHaveSchedule) {
+          return HomePage(schedule: state.scheduleEntiti, weekEntiti: state.weekEntiti,);
+        } else if (state is IsNotHaveSchedule) {
+          return const HelloPage();
+        } else {
+          context.read<ScheduleBuilderCubit>().getSchedule();
+        }
+        return const HelloPage();
       },
     );
   }
 
-  void _showSnackBar(BuildContext context, dynamic error) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        duration: const Duration(seconds: 5),
-        content: SingleChildScrollView(
-            child: Text(
-          error.toString(),
-          maxLines: 5,
-        )),
-      ),
-    );
-  }
+  // void _showSnackBar(BuildContext context, dynamic error) {
+  //   ScaffoldMessenger.of(context).showSnackBar(
+  //     SnackBar(
+  //       duration: const Duration(seconds: 5),
+  //       content: SingleChildScrollView(
+  //           child: Text(
+  //         error.toString(),
+  //         maxLines: 5,
+  //       )),
+  //     ),
+  //   );
+  // }
 }

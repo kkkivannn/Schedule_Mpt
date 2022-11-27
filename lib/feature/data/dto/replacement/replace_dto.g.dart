@@ -16,7 +16,7 @@ ReplaceDto _$ReplaceDtoFromJson(Map<String, dynamic> json) => ReplaceDto(
 Map<String, dynamic> _$ReplaceDtoToJson(ReplaceDto instance) =>
     <String, dynamic>{
       'from': instance.from,
-      'to': instance.to,
       'lessonNumber': instance.lessonNumber,
+      'to': instance.to,
       'updateAt': instance.updateAt,
     };

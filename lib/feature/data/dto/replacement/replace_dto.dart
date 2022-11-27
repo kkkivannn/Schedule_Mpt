@@ -3,18 +3,18 @@ import 'package:schedule_mpt/feature/domain/entiti/schedule/replacement/replace_
 part 'replace_dto.g.dart';
 
 @JsonSerializable()
-class ReplaceDto {
-  final String from;
-  final String to;
-  final String lessonNumber;
-  final String updateAt;
-
+class ReplaceDto extends ReplaceEntiti {
   ReplaceDto({
-    required this.from,
-    required this.to,
-    required this.lessonNumber,
-    required this.updateAt,
-  });
+    required final String from,
+    required final String to,
+    required final String lessonNumber,
+    required final String updateAt,
+  }) : super(
+          from: from,
+          to: to,
+          lessonNumber: lessonNumber,
+          updateAt: updateAt,
+        );
   factory ReplaceDto.fromJson(Map<String, dynamic> json) =>
       _$ReplaceDtoFromJson(json);
   Map<String, dynamic> toJson() => _$ReplaceDtoToJson(this);

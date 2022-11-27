@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:schedule_mpt/core/utils/saved_schedule.dart';
 import 'package:schedule_mpt/feature/presentation/hello_page/controller/loading_container/loading_container_cubit.dart';
 import 'package:schedule_mpt/feature/presentation/hello_page/controller/loading_container/loading_container_state.dart';
 import 'package:schedule_mpt/feature/presentation/hello_page/widgets/loading_container.dart';
 
 class HelloPage extends StatefulWidget {
   final String? group;
+  final String? week;
   const HelloPage({
     super.key,
     this.group,
+    this.week,
   });
 
   @override
@@ -19,7 +20,6 @@ class HelloPage extends StatefulWidget {
 class _HelloPageState extends State<HelloPage> {
   @override
   Widget build(BuildContext context) {
-    final SavedSchedule savedSchedule = SavedSchedule();
     return BlocBuilder<LoadingContainerCubit, LoadingContainerState>(
       builder: (context, state) {
         return Scaffold(
@@ -116,16 +116,12 @@ class _HelloPageState extends State<HelloPage> {
                               vertical: 50, horizontal: 10),
                           child: ElevatedButton(
                             onPressed: () {
-                              setState(() {
-                                savedSchedule
-                                    .saveSchedule(state.scheduleEntiti);
-                              });
-                              // context
-                              //     .read<SavedScheduleCubit>()
-                              //     .saveSchedule(state.scheduleEntiti);
                               Navigator.of(context).pushNamedAndRemoveUntil(
                                   "/HomePage",
-                                  arguments: {"schedule": state.scheduleEntiti},
+                                  arguments: {
+                                    "schedule": state.scheduleEntiti,
+                                    "week": state.weekEntiti
+                                  },
                                   (route) => false);
                             },
                             style: ButtonStyle(

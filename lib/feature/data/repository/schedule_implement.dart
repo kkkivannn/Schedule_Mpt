@@ -1,3 +1,5 @@
+import 'package:schedule_mpt/core/network/network_info.dart';
+import 'package:schedule_mpt/feature/data/datasource/local_datasource/schedule_local_datasource.dart';
 import 'package:schedule_mpt/feature/data/datasource/remote_datasource/schedule_remote_datasource.dart';
 import 'package:schedule_mpt/feature/data/dto/groups/groups_dto.dart';
 import 'package:schedule_mpt/feature/data/dto/replacement/replacement_dto.dart';
@@ -5,6 +7,7 @@ import 'package:schedule_mpt/feature/data/dto/schedule/schedule/schedule_dto.dar
 import 'package:schedule_mpt/feature/data/dto/specialities/specialities_dto.dart';
 import 'package:schedule_mpt/feature/data/dto/week/week_dto.dart';
 import 'package:schedule_mpt/feature/domain/entiti/schedule/replacement/replacement_entiti.dart';
+import 'package:schedule_mpt/feature/domain/entiti/schedule/schedule_entiti/schedule_entiti.dart';
 import 'package:schedule_mpt/feature/domain/entiti/schedule/specialities/specialities_entiti.dart';
 import 'package:schedule_mpt/feature/domain/entiti/schedule/groups/groups_entiti.dart';
 import 'package:schedule_mpt/core/error/failure.dart';
@@ -14,8 +17,11 @@ import 'package:schedule_mpt/feature/domain/repositories/schedule_repository.dar
 
 class ScheduleRepositoryImplement implements ScheduleRepository {
   final ScheduleRemoteDatasource scheduleRemoteDatasource;
+  final ScheduleLocalDatasource scheduleLocalDatasource;
+  final NetworkInfo networkInfo;
 
-  ScheduleRepositoryImplement(this.scheduleRemoteDatasource);
+  ScheduleRepositoryImplement(this.scheduleRemoteDatasource,
+      this.scheduleLocalDatasource, this.networkInfo);
   @override
   Future<Either<Failure, WeekEntiti>> getWeek(String endpoint) async {
     return await _getWeek(() => scheduleRemoteDatasource.getWeek(endpoint));
@@ -34,7 +40,8 @@ class ScheduleRepositoryImplement implements ScheduleRepository {
   }
 
   @override
-  Future<Either<Failure, List<ScheduleEntiti>>> getSchedule(String endpoint) async {
+  Future<Either<Failure, List<ScheduleEntiti>>> getSchedule(
+      String endpoint) async {
     return await _getSchedule(
         () => scheduleRemoteDatasource.getSchedule(endpoint));
   }
@@ -46,15 +53,19 @@ class ScheduleRepositoryImplement implements ScheduleRepository {
         () => scheduleRemoteDatasource.getSpecialities(endpoint));
   }
 
-  
-
   Future<Either<Failure, WeekDto>> _getWeek(
       Future<WeekDto> Function() week) async {
-    try {
-      final weekModel = await week();
-      return Right(weekModel);
-    } catch (_) {
-      return Left(ServerFailure());
+    if (await networkInfo.isConnected) {
+      try {
+        final weekModel = await week();
+        scheduleLocalDatasource.saveWeek(weekModel);
+        return Right(weekModel);
+      } catch (e) {
+        print(e.toString());
+        return Left(ServerFailure());
+      }
+    } else {
+      return Right(await scheduleLocalDatasource.getWeek());
     }
   }
 
@@ -80,11 +91,17 @@ class ScheduleRepositoryImplement implements ScheduleRepository {
 
   Future<Either<Failure, List<ScheduleDto>>> _getSchedule(
       Future<List<ScheduleDto>> Function() schedule) async {
-    try {
-      final scheduleDto = await schedule();
-      return Right(scheduleDto);
-    } catch (_) {
-      return Left(ServerFailure());
+    if (await networkInfo.isConnected) {
+      try {
+        final scheduleDto = await schedule();
+        scheduleLocalDatasource.saveSchedule(scheduleDto);
+        return Right(scheduleDto);
+      } catch (e) {
+        print(e.toString());
+        return Left(ServerFailure());
+      }
+    } else {
+      return Right(await scheduleLocalDatasource.getSavesSchedule());
     }
   }
 
@@ -97,6 +114,4 @@ class ScheduleRepositoryImplement implements ScheduleRepository {
       return Left(ServerFailure());
     }
   }
-  
-  
 }

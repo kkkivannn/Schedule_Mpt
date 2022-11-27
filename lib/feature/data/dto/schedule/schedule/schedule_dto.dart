@@ -1,22 +1,26 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:schedule_mpt/feature/data/dto/schedule/info/info_dto.dart';
 import 'package:schedule_mpt/feature/data/dto/schedule/subjects/subjects_dto.dart';
+import 'package:schedule_mpt/feature/domain/entiti/schedule/info/info_entiti.dart';
 import 'package:schedule_mpt/feature/domain/entiti/schedule/schedule_entiti/schedule_entiti.dart';
+import 'package:schedule_mpt/feature/domain/entiti/schedule/subjects/subjects_entiti.dart';
 
-import '../info/info_dto.dart';
-part 'schedule_dto.g.dart';
-
-@JsonSerializable()
-class ScheduleDto {
-  final dynamic info;
-  final dynamic subjects;
-
+class ScheduleDto extends ScheduleEntiti {
   ScheduleDto({
-    required this.info,
-    required this.subjects,
-  });
-  factory ScheduleDto.fromJson(Map<String, dynamic> json) => _$ScheduleDtoFromJson(json);
-  Map<String, dynamic> toJson() => _$ScheduleDtoToJson(this);
-  ScheduleEntiti toEntiti(){
-    return ScheduleEntiti(info: info, subjects: subjects);
+    required final InfoEntiti info,
+    required final List<SubjectsEntiti> subjects,
+  }) : super(info: info, subjects: subjects);
+  factory ScheduleDto.fromJson(Map<String, dynamic> json) => ScheduleDto(
+        info: InfoDto.fromJson(json['info']),
+        subjects: List<SubjectsDto>.from(
+          (json["subjects"] as List<dynamic>)
+              .map((x) => SubjectsDto.fromJson(x))
+              .toList(),
+        ),
+      );
+  Map<String, dynamic> toJson() {
+    return {
+      "info": info,
+      "subjects": subjects,
+    };
   }
 }

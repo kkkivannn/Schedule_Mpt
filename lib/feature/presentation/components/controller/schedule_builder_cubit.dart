@@ -1,36 +1,29 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
-import 'package:schedule_mpt/feature/data/models/schedule/schedule_model.dart';
-import 'package:schedule_mpt/feature/data/repository/schedule_implement.dart';
-import 'package:schedule_mpt/feature/domain/entiti/schedule/schedule_entiti.dart';
-part 'schedule_builder_state.dart';
-part 'schedule_builder_cubit.freezed.dart';
-part 'schedule_builder_cubit.g.dart';
 
-class ScheduleBuilderCubit extends HydratedCubit<ScheduleBuilderState> {
-  ScheduleBuilderCubit() : super(ScheduleBuilderState.notHaveSchedule());
-  // final ScheduleRepositoryImplement scheduleRepositoryImplement;
-  // Future<void> saveSchedule(ScheduleEntiti scheduleEntiti) async {
-  //   emit(ScheduleBuilderState.waiting());
-  //   try {
-  //     final ScheduleEntiti scheduleEntiti = await scheduleRepositoryImplement.getSchedule(endpoint);
-  //     emit(ScheduleBuilderState.haveSchedule(scheduleEntiti));
-  //   } catch (e) {
+import 'package:schedule_mpt/feature/data/datasource/local_datasource/schedule_local_datasource.dart';
 
-  //   }
-  // }
+import 'schedule_builder_state.dart';
 
-  @override
-  ScheduleBuilderState? fromJson(Map<String, dynamic> json) {
-    final state = ScheduleBuilderState.fromJson(json);
-    return state.whenOrNull(
-      haveSchedule: (scheduleModel) =>
-          ScheduleBuilderState.haveSchedule(scheduleModel),
-    );
-  }
+class ScheduleBuilderCubit extends Cubit<ScheduleBuilderState> {
+  final ScheduleLocalDatasource scheduleLocalDatasource;
+  ScheduleBuilderCubit({required this.scheduleLocalDatasource})
+      : super(IsEmptySchedule());
 
-  @override
-  Map<String, dynamic>? toJson(ScheduleBuilderState state) {
-    return state.toJson();
+  Future<void> getSchedule() async {
+    try {
+      emit(IsEmptySchedule());
+      final isHaveSchedule = await scheduleLocalDatasource.getSchedule();
+      final scheduleEntiti = await scheduleLocalDatasource.getSavesSchedule();
+      final isHaveWeek = await scheduleLocalDatasource.isHaveWeek();
+      final weekEntiti = await scheduleLocalDatasource.getWeek();
+      if (isHaveSchedule && isHaveWeek) {
+        emit(
+          IsHaveSchedule(
+              scheduleEntiti: scheduleEntiti, weekEntiti: weekEntiti),
+        );
+      }
+    } catch (e) {
+      emit(IsNotHaveSchedule());
+    }
   }
 }

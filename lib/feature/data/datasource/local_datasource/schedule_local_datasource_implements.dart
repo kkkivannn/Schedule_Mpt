@@ -1,0 +1,70 @@
+import 'dart:convert';
+
+import 'package:schedule_mpt/constants.dart';
+import 'package:schedule_mpt/core/error/exception.dart';
+import 'package:schedule_mpt/feature/data/datasource/local_datasource/schedule_local_datasource.dart';
+import 'package:schedule_mpt/feature/data/dto/schedule/schedule/schedule_dto.dart';
+import 'package:schedule_mpt/feature/data/dto/week/week_dto.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+class ScheduleLocalDatasorceImplement implements ScheduleLocalDatasource {
+  final SharedPreferences sharedPreferences;
+
+  ScheduleLocalDatasorceImplement(this.sharedPreferences);
+  @override
+  Future<List<ScheduleDto>> getSavesSchedule() {
+    final jsonListString = sharedPreferences.getStringList(SAVED_SCHEDULE);
+    if (jsonListString != null) {
+      return Future.value(
+        (jsonListString)
+            .map((schedule) => ScheduleDto.fromJson(json.decode(schedule)))
+            .toList(),
+      );
+    } else {
+      throw CacheException();
+    }
+  }
+
+  @override
+  Future<void> saveSchedule(List<ScheduleDto> scheduleDto) {
+    final List<String> scheduleDtoList =
+        scheduleDto.map((schedule) => json.encode(schedule.toJson())).toList();
+    return sharedPreferences.setStringList(SAVED_SCHEDULE, scheduleDtoList);
+  }
+
+  @override
+  Future<bool> getSchedule() async {
+    final jsonListString = sharedPreferences.getStringList(SAVED_SCHEDULE);
+    if (jsonListString != null) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  @override
+  Future<WeekDto> getWeek() {
+    final week = sharedPreferences.getString(SAVED_WEEK);
+    if (week != null) {
+      return Future.value(WeekDto.fromJson(jsonDecode(week)));
+    } else {
+      throw CacheException();
+    }
+  }
+
+  @override
+  Future<void> saveWeek(WeekDto weekDto) {
+    return sharedPreferences.setString(
+        SAVED_WEEK, jsonEncode(weekDto.toJson()));
+  }
+
+  @override
+  Future<bool> isHaveWeek() async {
+    final week = sharedPreferences.getString(SAVED_WEEK);
+    if (week != null) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+}

@@ -4,7 +4,7 @@ import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 import 'package:schedule_mpt/feature/domain/entiti/schedule/groups/groups_entiti.dart';
 import 'package:schedule_mpt/feature/domain/entiti/schedule/replacement/replacement_entiti.dart';
-import 'package:schedule_mpt/feature/domain/entiti/schedule/schedule_entiti.dart';
+import 'package:schedule_mpt/feature/domain/entiti/schedule/schedule_entiti/schedule_entiti.dart';
 import 'package:schedule_mpt/feature/domain/entiti/schedule/specialities/specialities_entiti.dart';
 import 'package:schedule_mpt/feature/domain/entiti/schedule/week/week_entiti.dart';
 import 'package:schedule_mpt/feature/domain/repositories/schedule_repository.dart';
