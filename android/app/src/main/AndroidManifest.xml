@@ -1,7 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.schedule_mpt">
+    <uses-permission android:name="android.permission.INTERNET"/>
    <application
-        android:label="schedule_mpt"
+        android:label="Расписание МПТ"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

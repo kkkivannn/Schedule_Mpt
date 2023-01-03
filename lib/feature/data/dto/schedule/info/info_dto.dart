@@ -1,9 +1,5 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:schedule_mpt/feature/domain/entiti/schedule/info/info_entiti.dart';
 
-part 'info_dto.g.dart';
-
-@JsonSerializable()
 class InfoDto extends InfoEntiti {
   InfoDto({
     required final String day,

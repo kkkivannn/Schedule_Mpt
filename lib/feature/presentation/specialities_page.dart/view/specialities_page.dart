@@ -1,13 +1,21 @@
+import 'package:card_loading/card_loading.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:schedule_mpt/feature/presentation/groups_page.dart/controller/groups_page_cubit.dart';
+import 'package:schedule_mpt/core/helpers/functions.dart';
+import 'package:schedule_mpt/feature/presentation/home_page/controller/home_page_cubit.dart';
 import 'package:schedule_mpt/feature/presentation/specialities_page.dart/controller/specialities_page_cubit.dart';
 import 'package:schedule_mpt/feature/presentation/specialities_page.dart/controller/specialities_page_state.dart';
 import 'package:schedule_mpt/feature/presentation/specialities_page.dart/widgets/specialities_card.dart';
 
-class SpecialitiesPage extends StatelessWidget {
+class SpecialitiesPage extends StatefulWidget {
   const SpecialitiesPage({super.key});
 
+  @override
+  State<SpecialitiesPage> createState() => _SpecialitiesPageState();
+}
+
+class _SpecialitiesPageState extends State<SpecialitiesPage> {
+  bool isSelected = false;
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<SpecialitiesCubit, SpecialitiesState>(
@@ -16,71 +24,96 @@ class SpecialitiesPage extends StatelessWidget {
           context.read<SpecialitiesCubit>().fetchSpecialities("/specialities");
         } else if (state is SpecialitiesLoadedState) {
           return Scaffold(
-            body: SafeArea(
-              child: Column(
-                children: [
-                  const Padding(
-                    padding: EdgeInsets.only(top: 20, bottom: 20),
+            body: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  padding: const EdgeInsets.only(left: 20),
+                  height: 80,
+                  child: const Align(
+                    alignment: Alignment.centerLeft,
                     child: Text(
-                      'Выберите специальность',
+                      'Выбери свою специальность',
                       style: TextStyle(
                         fontFamily: 'Roboto',
                         fontSize: 18,
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold,
+                        fontWeight: FontWeight.w400,
                       ),
+                      textAlign: TextAlign.center,
                     ),
                   ),
-                  Expanded(
-                    child: GridView.builder(
-                      physics: const NeverScrollableScrollPhysics(),
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
-                      itemCount: 6,
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        mainAxisSpacing: 20,
-                        crossAxisSpacing: 20,
-                        mainAxisExtent: 100,
-                      ),
-                      itemBuilder: (context, index) {
-                        return SpecialitiesCard(
-                          title: state.specialitiesEntiti.specialities[index],
-                          onTap: () {
-                            context.read<GroupsCubit>().fetchGroups(
-                                "/groups/${state.specialitiesEntiti.specialities[index]}");
-                            Navigator.pushNamed(
-                              context,
-                              "/GroupsPage",
-                              arguments: {
-                                'specialities': state
-                                    .specialitiesEntiti.specialities[index],
-                              },
-                            );
-                          },
-                        );
-                      },
-                    ),
+                ),
+                Expanded(
+                  child: ListView.builder(
+                    padding: const EdgeInsets.symmetric(vertical: 0),
+                    physics: const BouncingScrollPhysics(),
+                    itemCount: state.specialitiesEntiti.specialities.length,
+                    shrinkWrap: true,
+                    itemBuilder: (context, index) {
+                      return SpecialitiesCard(
+                        title: state.specialitiesEntiti.specialities[index],
+                        onTap: () async {
+                          await context.read<HomePageCubit>().saveSpecialities(
+                              state.specialitiesEntiti.specialities[index]);
+                          BottomSheets(context: context).schowGroupsBottomSheet(
+                              state.specialitiesEntiti.specialities[index]);
+                        },
+                      );
+                    },
                   ),
-                ],
-              ),
+                )
+              ],
             ),
           );
         } else if (state is SpecialitiesErrorState) {
-          return const Scaffold(
-            body: Center(
-              child: Text('Error!'),
-            ),
+          return const Center(
+            child: Text('Error!'),
           );
         }
-        return const SafeArea(
-          child: Scaffold(
-            body: Center(
-              child: CircularProgressIndicator(
-                color: Color(0xff5A567B),
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              padding: const EdgeInsets.only(left: 20),
+              height: 80,
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: CardLoading(
+                  height: 18,
+                  width: 260,
+                  cardLoadingTheme: CardLoadingTheme(
+                    colorOne: const Color(0xfff5f5f5),
+                    colorTwo: Colors.grey[300]!,
+                  ),
+                  borderRadius: const BorderRadius.all(
+                    Radius.circular(5),
+                  ),
+                ),
               ),
             ),
-          ),
+            Expanded(
+              child: ListView.builder(
+                padding: const EdgeInsets.symmetric(vertical: 0),
+                physics: const BouncingScrollPhysics(),
+                itemCount: 6,
+                shrinkWrap: true,
+                itemBuilder: (context, index) {
+                  return CardLoading(
+                    height: 80,
+                    cardLoadingTheme: CardLoadingTheme(
+                      colorOne: const Color(0xfff5f5f5),
+                      colorTwo: Colors.grey[300]!,
+                    ),
+                    borderRadius: const BorderRadius.all(Radius.circular(15)),
+                    margin: const EdgeInsets.symmetric(
+                      horizontal: 50,
+                      vertical: 10,
+                    ),
+                  );
+                },
+              ),
+            )
+          ],
         );
       },
     );

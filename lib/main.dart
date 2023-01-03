@@ -5,7 +5,7 @@ import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:schedule_mpt/feature/presentation/components/controller/schedule_builder_cubit.dart';
 import 'package:schedule_mpt/feature/presentation/groups_page.dart/controller/groups_page_cubit.dart';
-import 'package:schedule_mpt/feature/presentation/hello_page/controller/loading_container/loading_container_cubit.dart';
+import 'package:schedule_mpt/feature/presentation/home_page/controller/home_page_cubit.dart';
 import 'package:schedule_mpt/feature/presentation/specialities_page.dart/controller/specialities_page_cubit.dart';
 import 'package:schedule_mpt/rout_generator.dart';
 import 'injection.container.dart' as di;
@@ -28,8 +28,8 @@ Future<void> main() async {
         BlocProvider<GroupsCubit>(
           create: (context) => sl<GroupsCubit>(),
         ),
-        BlocProvider<LoadingContainerCubit>(
-          create: (context) => sl<LoadingContainerCubit>(),
+        BlocProvider<HomePageCubit>(
+          create: (context) => sl<HomePageCubit>(),
         ),
         BlocProvider<ScheduleBuilderCubit>(
             create: (context) => sl<ScheduleBuilderCubit>()),

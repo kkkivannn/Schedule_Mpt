@@ -9,7 +9,7 @@ import 'package:schedule_mpt/feature/domain/repositories/schedule_repository.dar
 import 'package:schedule_mpt/feature/domain/usecases/schedule.dart';
 import 'package:schedule_mpt/feature/presentation/components/controller/schedule_builder_cubit.dart';
 import 'package:schedule_mpt/feature/presentation/groups_page.dart/controller/groups_page_cubit.dart';
-import 'package:schedule_mpt/feature/presentation/hello_page/controller/loading_container/loading_container_cubit.dart';
+import 'package:schedule_mpt/feature/presentation/home_page/controller/home_page_cubit.dart';
 import 'package:schedule_mpt/feature/presentation/specialities_page.dart/controller/specialities_page_cubit.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -21,7 +21,7 @@ Future<void> init() async {
   //Cubit
   sl.registerFactory(() => SpecialitiesCubit(getSpecialities: sl()));
   sl.registerFactory(() => GroupsCubit(getGroups: sl()));
-  sl.registerFactory(() => LoadingContainerCubit(getSchedule: sl(), getWeek: sl()));
+  sl.registerFactory(() => HomePageCubit(getSchedule: sl(), getWeek: sl(), scheduleLocalDatasource: sl()));
   sl.registerFactory(() => ScheduleBuilderCubit(scheduleLocalDatasource: sl()));
   //Usecases
   sl.registerLazySingleton(() => GetWeek(sl()));

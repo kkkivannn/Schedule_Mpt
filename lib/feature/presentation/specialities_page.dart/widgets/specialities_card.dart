@@ -12,11 +12,14 @@ class SpecialitiesCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 50,
-      width: 50,
+    return Container(
+      height: 80,
+      margin: const EdgeInsets.symmetric(
+        vertical: 10,
+        horizontal: 50,
+      ),
       child: Material(
-        color: const Color(0xff5A567B),
+        color: const Color(0xff464D70),
         borderRadius: BorderRadius.circular(15),
         child: InkWell(
           borderRadius: BorderRadius.circular(15),

@@ -16,7 +16,7 @@ class ScheduleBuilder extends StatelessWidget {
     return BlocBuilder<ScheduleBuilderCubit, ScheduleBuilderState>(
       builder: (context, state) {
         if (state is IsHaveSchedule) {
-          return HomePage(schedule: state.scheduleEntiti, weekEntiti: state.weekEntiti,);
+          return const HomePage();
         } else if (state is IsNotHaveSchedule) {
           return const HelloPage();
         } else {

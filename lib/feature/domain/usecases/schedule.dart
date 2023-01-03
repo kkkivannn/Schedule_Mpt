@@ -62,6 +62,7 @@ class GetSchedule implements UseCase<List<ScheduleEntiti>, EndpointParams> {
   }
 }
 
+
 class EndpointParams extends Equatable {
   final String endpoint;
 

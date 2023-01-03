@@ -67,4 +67,36 @@ class ScheduleLocalDatasorceImplement implements ScheduleLocalDatasource {
       return false;
     }
   }
+
+  @override
+  Future<void> saveGroup(String group) {
+    return sharedPreferences.setString(SAVED_USER_GROUP, group);
+  }
+
+  @override
+  Future<String> getGroup() async {
+    final group = sharedPreferences.getString(SAVED_USER_GROUP);
+    if (group != null) {
+      print(group);
+      return group;
+    } else {
+      throw CacheException();
+    }
+  }
+
+  @override
+  Future<String> getSpecialities() async {
+    final specialities = sharedPreferences.getString(SAVED_USER_SPECIALITIES);
+    if (specialities != null) {
+      print(specialities);
+      return specialities;
+    } else {
+      throw CacheException();
+    }
+  }
+
+  @override
+  Future<void> saveSpecialities(String specialities) {
+    return sharedPreferences.setString(SAVED_USER_SPECIALITIES, specialities);
+  }
 }

@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:schedule_mpt/feature/domain/entiti/schedule/schedule_entiti/schedule_entiti.dart';
-import 'package:schedule_mpt/feature/domain/entiti/schedule/week/week_entiti.dart';
 import 'package:schedule_mpt/feature/presentation/components/schedule_builder.dart';
-import 'package:schedule_mpt/feature/presentation/groups_page.dart/view/groups_page.dart';
 import 'package:schedule_mpt/feature/presentation/home_page/view/home_page.dart';
-import 'package:schedule_mpt/feature/presentation/specialities_page.dart/view/specialities_page.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -13,32 +9,9 @@ class RouteGenerator {
         return MaterialPageRoute(
           builder: (context) => const ScheduleBuilder(),
         );
-      case '/SpecialitiesPage':
-        return MaterialPageRoute(
-            builder: (context) => const SpecialitiesPage());
-      case '/GroupsPage':
-        final arguments = settings.arguments as Map<String, dynamic>;
-        if (arguments['specialities'] is String) {
-          return MaterialPageRoute(
-            builder: (context) => GroupsPage(
-              specialities: arguments['specialities'] as String,
-            ),
-          );
-        } else {
-          return _errorRoute();
-        }
       case '/HomePage':
-        final arguments = settings.arguments as Map<String, dynamic>;
-        if (arguments["schedule"] is List<ScheduleEntiti> &&
-            arguments['week'] is WeekEntiti) {
-          return MaterialPageRoute(
-              builder: (context) => HomePage(
-                    schedule: arguments['schedule'],
-                    weekEntiti: arguments['week'],
-                  ));
-        } else {
-          return _errorRoute();
-        }
+        return MaterialPageRoute(builder: (context) => const HomePage());
+
       // final arguments = settings.arguments as Map<String, dynamic>;
       // if (arguments['title'] is String &&
       //     arguments["content"] is String &&

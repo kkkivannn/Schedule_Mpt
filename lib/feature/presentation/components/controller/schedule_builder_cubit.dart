@@ -26,4 +26,13 @@ class ScheduleBuilderCubit extends Cubit<ScheduleBuilderState> {
       emit(IsNotHaveSchedule());
     }
   }
+  Future<bool> toNextPage()async{
+    final isHaveSchedule = await scheduleLocalDatasource.getSchedule();
+    final isHaveWeek = await scheduleLocalDatasource.isHaveWeek();
+    if (isHaveSchedule && isHaveWeek) {
+      return true;
+    }else{
+      return false;
+    }
+  }
 }

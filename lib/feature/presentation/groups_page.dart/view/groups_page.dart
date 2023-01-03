@@ -1,12 +1,13 @@
+import 'package:card_loading/card_loading.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:schedule_mpt/feature/presentation/components/controller/schedule_builder_cubit.dart';
 import 'package:schedule_mpt/feature/presentation/groups_page.dart/controller/groups_page_cubit.dart';
-import 'package:schedule_mpt/feature/presentation/hello_page/controller/loading_container/loading_container_cubit.dart';
-import '../../hello_page/view/hello_page.dart';
+import 'package:schedule_mpt/feature/presentation/home_page/controller/home_page_cubit.dart';
 import '../controller/groups_page_state.dart';
 import '../widget/groups_card.dart';
 
-class GroupsPage extends StatelessWidget {
+class GroupsPage extends StatefulWidget {
   final String specialities;
   const GroupsPage({
     super.key,
@@ -14,58 +15,83 @@ class GroupsPage extends StatelessWidget {
   });
 
   @override
+  State<GroupsPage> createState() => _GroupsPageState();
+}
+
+class _GroupsPageState extends State<GroupsPage> {
+  @override
   Widget build(BuildContext context) {
     return BlocBuilder<GroupsCubit, GroupsState>(
       builder: (context, state) {
+        if (state is GroupsEmptyState) {
+          context
+              .read<GroupsCubit>()
+              .fetchGroups("/groups/${widget.specialities}");
+        }
         if (state is GroupsLoadedState) {
           return Scaffold(
-            body: SafeArea(
-              child: Column(
-                children: [
-                  const Padding(
-                    padding: EdgeInsets.only(top: 20, bottom: 20),
+            body: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  padding: const EdgeInsets.only(left: 20, top: 30),
+                  child: Align(
+                    alignment: Alignment.centerLeft,
                     child: Text(
-                      'Выберите группу',
+                      'Специальность: ${widget.specialities}',
+                      style: const TextStyle(
+                        fontFamily: 'Roboto',
+                        fontSize: 14,
+                        color: Colors.grey,
+                        fontWeight: FontWeight.w400,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                ),
+                Container(
+                  padding: const EdgeInsets.only(left: 20),
+                  height: 30,
+                  child: const Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      'Найди свою группу',
                       style: TextStyle(
                         fontFamily: 'Roboto',
                         fontSize: 18,
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold,
+                        fontWeight: FontWeight.w400,
                       ),
+                      textAlign: TextAlign.center,
                     ),
                   ),
-                  Expanded(
-                    child: GridView.builder(
-                      physics: const BouncingScrollPhysics(),
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
-                      itemCount: state.groupsEntiti.groups.length,
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        mainAxisSpacing: 20,
-                        crossAxisSpacing: 20,
-                        mainAxisExtent: 100,
-                      ),
-                      itemBuilder: (context, index) {
-                        return GroupsCard(
-                          title: state.groupsEntiti.groups[index],
-                          onTap: () {
-                            context.read<LoadingContainerCubit>().fetchSchedule('/timetable/?groupname=${state.groupsEntiti.groups[index]}', '/week/');
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => HelloPage(
-                                  group: state.groupsEntiti.groups[index],
-                                ),
-                              ),
-                            );
-                          },
-                        );
-                      },
-                    ),
+                ),
+                Expanded(
+                  child: ListView.builder(
+                    padding: const EdgeInsets.symmetric(vertical: 0),
+                    physics: const BouncingScrollPhysics(),
+                    itemCount: state.groupsEntiti.groups.length,
+                    shrinkWrap: true,
+                    itemBuilder: (context, index) {
+                      return GroupsCard(
+                        title: state.groupsEntiti.groups[index],
+                        onTap: () async {
+                          await context
+                              .read<HomePageCubit>()
+                              .saveGroup(state.groupsEntiti.groups[index]);
+                          await context.read<HomePageCubit>().fetchSchedule(
+                              '/timetable/?groupname=${state.groupsEntiti.groups[index]}',
+                              '/week/');
+                          await context
+                              .read<ScheduleBuilderCubit>()
+                              .getSchedule();
+                          Navigator.of(context).pushNamedAndRemoveUntil(
+                              "/HomePage", (route) => false);
+                        },
+                      );
+                    },
                   ),
-                ],
-              ),
+                )
+              ],
             ),
           );
         } else if (state is GroupsErrorState) {
@@ -75,14 +101,50 @@ class GroupsPage extends StatelessWidget {
             ),
           );
         }
-        return const SafeArea(
-          child: Scaffold(
-            body: Center(
-              child: CircularProgressIndicator(
-                color: Color(0xff5A567B),
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              padding: const EdgeInsets.only(left: 20),
+              height: 80,
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: CardLoading(
+                  height: 18,
+                  width: 260,
+                  cardLoadingTheme: CardLoadingTheme(
+                    colorOne: const Color(0xfff5f5f5),
+                    colorTwo: Colors.grey[300]!,
+                  ),
+                  borderRadius: const BorderRadius.all(
+                    Radius.circular(5),
+                  ),
+                ),
               ),
             ),
-          ),
+            Expanded(
+              child: ListView.builder(
+                padding: const EdgeInsets.symmetric(vertical: 0),
+                physics: const BouncingScrollPhysics(),
+                itemCount: 6,
+                shrinkWrap: true,
+                itemBuilder: (context, index) {
+                  return CardLoading(
+                    height: 80,
+                    cardLoadingTheme: CardLoadingTheme(
+                      colorOne: const Color(0xfff5f5f5),
+                      colorTwo: Colors.grey[300]!,
+                    ),
+                    borderRadius: const BorderRadius.all(Radius.circular(15)),
+                    margin: const EdgeInsets.symmetric(
+                      horizontal: 50,
+                      vertical: 10,
+                    ),
+                  );
+                },
+              ),
+            )
+          ],
         );
       },
     );

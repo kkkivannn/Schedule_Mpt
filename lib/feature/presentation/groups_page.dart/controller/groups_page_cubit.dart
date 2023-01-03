@@ -6,8 +6,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class GroupsCubit extends Cubit<GroupsState> {
   final GetGroups getGroups;
 
-  GroupsCubit({required this.getGroups})
-      : super(GroupsEmptyState());
+  GroupsCubit({
+    required this.getGroups,
+  }) : super(GroupsEmptyState());
 
   Future<void> fetchGroups(String endpoint) async {
     try {
@@ -15,8 +16,7 @@ class GroupsCubit extends Cubit<GroupsState> {
       final loadedGroupsOrFailure =
           await getGroups.call(EndpointParams(endpoint: endpoint));
       loadedGroupsOrFailure.fold(
-        (error) =>
-            emit(GroupsErrorState(message: SERVER_FAILURE_MESSAGE)),
+        (error) => emit(GroupsErrorState(message: SERVER_FAILURE_MESSAGE)),
         (loadedData) => emit(GroupsLoadedState(loadedData)),
       );
     } catch (_) {

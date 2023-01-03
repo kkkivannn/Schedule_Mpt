@@ -13,7 +13,7 @@ class IsHaveSchedule extends ScheduleBuilderState {
 
   IsHaveSchedule({required this.weekEntiti, required this.scheduleEntiti});
   @override
-  List<Object?> get props => [scheduleEntiti];
+  List<Object?> get props => [scheduleEntiti, weekEntiti];
 }
 
 class IsNotHaveSchedule extends ScheduleBuilderState {
