@@ -10,6 +10,7 @@ import 'package:schedule_mpt/feature/domain/usecases/schedule.dart';
 import 'package:schedule_mpt/feature/presentation/components/controller/schedule_builder_cubit.dart';
 import 'package:schedule_mpt/feature/presentation/groups_page.dart/controller/groups_page_cubit.dart';
 import 'package:schedule_mpt/feature/presentation/home_page/controller/home_page_cubit.dart';
+import 'package:schedule_mpt/feature/presentation/review/widgets/app_bar/controller/app_bar_cubit.dart';
 import 'package:schedule_mpt/feature/presentation/specialities_page.dart/controller/specialities_page_cubit.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -21,8 +22,10 @@ Future<void> init() async {
   //Cubit
   sl.registerFactory(() => SpecialitiesCubit(getSpecialities: sl()));
   sl.registerFactory(() => GroupsCubit(getGroups: sl()));
-  sl.registerFactory(() => HomePageCubit(getSchedule: sl(), getWeek: sl(), scheduleLocalDatasource: sl()));
+  sl.registerFactory(() => HomePageCubit(
+      getSchedule: sl(), getWeek: sl(), scheduleLocalDatasource: sl()));
   sl.registerFactory(() => ScheduleBuilderCubit(scheduleLocalDatasource: sl()));
+  sl.registerFactory(() => AppBarCubit());
   //Usecases
   sl.registerLazySingleton(() => GetWeek(sl()));
   sl.registerLazySingleton(() => GetSpecialities(sl()));
@@ -36,10 +39,10 @@ Future<void> init() async {
   sl.registerLazySingleton<ScheduleRemoteDatasource>(
       () => ScheduleRemoteDatasourceImplement());
   sl.registerLazySingleton<ScheduleLocalDatasource>(
-      () => ScheduleLocalDatasorceImplement(sl()));   
+      () => ScheduleLocalDatasorceImplement(sl()));
 
   sl.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl(sl()));
   final sharedPreferences = await SharedPreferences.getInstance();
   sl.registerLazySingleton(() => sharedPreferences);
   sl.registerLazySingleton(() => InternetConnectionChecker());
-  }
+}

@@ -26,7 +26,7 @@ class _GroupsPageState extends State<GroupsPage> {
         if (state is GroupsEmptyState) {
           context
               .read<GroupsCubit>()
-              .fetchGroups("/groups/${widget.specialities}");
+              .fetchGroups("/groups/?speciality=${widget.specialities}");
         }
         if (state is GroupsLoadedState) {
           return Scaffold(
@@ -66,29 +66,30 @@ class _GroupsPageState extends State<GroupsPage> {
                   ),
                 ),
                 Expanded(
-                  child: ListView.builder(
-                    padding: const EdgeInsets.symmetric(vertical: 0),
-                    physics: const BouncingScrollPhysics(),
-                    itemCount: state.groupsEntiti.groups.length,
-                    shrinkWrap: true,
-                    itemBuilder: (context, index) {
-                      return GroupsCard(
-                        title: state.groupsEntiti.groups[index],
-                        onTap: () async {
-                          await context
-                              .read<HomePageCubit>()
-                              .saveGroup(state.groupsEntiti.groups[index]);
-                          await context.read<HomePageCubit>().fetchSchedule(
-                              '/timetable/?groupname=${state.groupsEntiti.groups[index]}',
-                              '/week/');
-                          await context
-                              .read<ScheduleBuilderCubit>()
-                              .getSchedule();
-                          Navigator.of(context).pushNamedAndRemoveUntil(
-                              "/HomePage", (route) => false);
-                        },
-                      );
-                    },
+                  child: ScrollConfiguration(
+                    behavior: MyBehavior(),
+                    child: ListView.builder(
+                      padding: const EdgeInsets.symmetric(vertical: 0),
+                      physics: const ClampingScrollPhysics(),
+                      itemCount: state.groupsEntiti.groups.length,
+                      shrinkWrap: true,
+                      itemBuilder: (context, index) {
+                        return GroupsCard(
+                          title: state.groupsEntiti.groups[index],
+                          onTap: () async {
+                            context
+                                .read<HomePageCubit>()
+                                .saveGroup(state.groupsEntiti.groups[index]);
+                            await context.read<HomePageCubit>().fetchSchedule(
+                                '/timetable/?number_group=${state.groupsEntiti.groups[index]}',
+                                '/week/');
+                            context.read<ScheduleBuilderCubit>().getSchedule();
+                            Navigator.of(context).pushNamedAndRemoveUntil(
+                                "/HomePage", (route) => false);
+                          },
+                        );
+                      },
+                    ),
                   ),
                 )
               ],
@@ -137,7 +138,7 @@ class _GroupsPageState extends State<GroupsPage> {
                     ),
                     borderRadius: const BorderRadius.all(Radius.circular(15)),
                     margin: const EdgeInsets.symmetric(
-                      horizontal: 50,
+                      horizontal: 30,
                       vertical: 10,
                     ),
                   );
@@ -148,5 +149,12 @@ class _GroupsPageState extends State<GroupsPage> {
         );
       },
     );
+  }
+}
+class MyBehavior extends ScrollBehavior {
+  @override
+  Widget buildOverscrollIndicator(
+      BuildContext context, Widget child, ScrollableDetails details) {
+    return child;
   }
 }

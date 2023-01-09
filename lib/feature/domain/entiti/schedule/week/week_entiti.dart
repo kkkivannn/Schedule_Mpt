@@ -1,4 +1,8 @@
 class WeekEntiti {
   final String week;
-  WeekEntiti({required this.week});
+  final String next;
+  WeekEntiti({
+    required this.next,
+    required this.week,
+  });
 }

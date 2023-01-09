@@ -16,7 +16,7 @@ class SpecialitiesCard extends StatelessWidget {
       height: 80,
       margin: const EdgeInsets.symmetric(
         vertical: 10,
-        horizontal: 50,
+        horizontal: 30,
       ),
       child: Material(
         color: const Color(0xff464D70),

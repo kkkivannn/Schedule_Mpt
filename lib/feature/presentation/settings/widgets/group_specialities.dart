@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 
-class GroupAndSpecialitiesWidget extends StatelessWidget {
+class SettingCardWidget extends StatelessWidget {
   final String title;
-  final String groupOrSpecialities;
   final Function() onTap;
-  const GroupAndSpecialitiesWidget(
-      {super.key, required this.title, required this.groupOrSpecialities, required this.onTap});
+  const SettingCardWidget(
+      {super.key, required this.title, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -29,13 +28,14 @@ class GroupAndSpecialitiesWidget extends StatelessWidget {
               title,
               style: const TextStyle(
                 fontFamily: 'Roboto',
-                fontSize: 12,
+                fontSize: 15,
                 color: Colors.black,
               ),
             ),
             const Spacer(),
-            const Icon(
+            Icon(
               Icons.arrow_forward_ios_rounded,
+              color: Colors.grey[500],
             )
           ],
         ),

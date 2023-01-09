@@ -1,10 +1,11 @@
-class SubjectEntiti {
-  final String sub;
+class TeacherEntiti {
   final String numerator;
   final String denominator;
-  SubjectEntiti({
-    required this.sub,
+  final String tech;
+
+  TeacherEntiti({
     required this.numerator,
     required this.denominator,
+    required this.tech,
   });
 }

@@ -1,22 +1,25 @@
-
 import 'package:schedule_mpt/feature/domain/entiti/schedule/subject/subject_entiti.dart';
 
 class SubjectDto extends SubjectEntiti {
   SubjectDto({
-    required final String subject,
-    required final String week,
+    required final String sub,
+    required final String numerator,
+    required final String denominator,
   }) : super(
-          subject: subject,
-          week: week,
+          sub: sub,
+          numerator: numerator,
+          denominator: denominator,
         );
   factory SubjectDto.fromJson(Map<String, dynamic> json) => SubjectDto(
-        subject: json['sub'] as String,
-        week: json['week'] ?? "",
+        sub: json['sub'] ?? "",
+        numerator: json['numerator'] ?? "",
+        denominator: json['denominator'] ?? '',
       );
-  Map<String, dynamic> toJson(){
+  Map<String, dynamic> toJson() {
     return {
-      "sub": subject,
-      "week": week
+      "sub": sub,
+      "numerator": numerator,
+      "denominator": denominator,
     };
   }
 }

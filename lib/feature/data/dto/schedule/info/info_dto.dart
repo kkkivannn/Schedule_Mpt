@@ -8,8 +8,10 @@ class InfoDto extends InfoEntiti {
           day: day,
           place: place,
         );
-  factory InfoDto.fromJson(Map<String, dynamic> json) =>
-      InfoDto(day: json['day'], place: json["place"]);
+  factory InfoDto.fromJson(Map<String, dynamic> json) => InfoDto(
+        day: json['day'],
+        place: json["place"],
+      );
   Map<String, dynamic> toJson() {
     return {
       "day": day,

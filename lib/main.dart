@@ -6,6 +6,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:schedule_mpt/feature/presentation/components/controller/schedule_builder_cubit.dart';
 import 'package:schedule_mpt/feature/presentation/groups_page.dart/controller/groups_page_cubit.dart';
 import 'package:schedule_mpt/feature/presentation/home_page/controller/home_page_cubit.dart';
+import 'package:schedule_mpt/feature/presentation/review/widgets/app_bar/controller/app_bar_cubit.dart';
 import 'package:schedule_mpt/feature/presentation/specialities_page.dart/controller/specialities_page_cubit.dart';
 import 'package:schedule_mpt/rout_generator.dart';
 import 'injection.container.dart' as di;
@@ -32,7 +33,11 @@ Future<void> main() async {
           create: (context) => sl<HomePageCubit>(),
         ),
         BlocProvider<ScheduleBuilderCubit>(
-            create: (context) => sl<ScheduleBuilderCubit>()),
+          create: (context) => sl<ScheduleBuilderCubit>(),
+        ),
+        BlocProvider<AppBarCubit>(
+          create: (context) => sl<AppBarCubit>(),
+        ),
       ],
       child: const MaterialApp(
         debugShowCheckedModeBanner: false,

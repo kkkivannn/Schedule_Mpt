@@ -4,6 +4,9 @@ class SvgImg {
   static const String review = "assets/icons/review.svg";
   static const String settings = "assets/icons/settings.svg";
   static const String schedule = "assets/icons/schedule.svg";
+  static const String sun = "assets/icons/sun.svg";
+  static const String moon = "assets/icons/moon.svg";
+  static const String system = "assets/icons/system.svg";
 }
 
 class Img {
@@ -63,5 +66,17 @@ class TimeLessons {
     '12:00\n13:30',
     '14:00\n15:30',
     '15:40\n17:10',
+  ];
+}
+class WeekDayForReview{
+   static const List<int> weekDay = [
+    0,
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
   ];
 }

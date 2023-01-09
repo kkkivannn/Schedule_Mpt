@@ -2,6 +2,8 @@ import 'package:card_loading/card_loading.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:schedule_mpt/core/helpers/functions.dart';
+import 'package:schedule_mpt/feature/presentation/groups_page.dart/controller/groups_page_cubit.dart';
+import 'package:schedule_mpt/feature/presentation/groups_page.dart/view/groups_page.dart';
 import 'package:schedule_mpt/feature/presentation/home_page/controller/home_page_cubit.dart';
 import 'package:schedule_mpt/feature/presentation/specialities_page.dart/controller/specialities_page_cubit.dart';
 import 'package:schedule_mpt/feature/presentation/specialities_page.dart/controller/specialities_page_state.dart';
@@ -53,6 +55,8 @@ class _SpecialitiesPageState extends State<SpecialitiesPage> {
                       return SpecialitiesCard(
                         title: state.specialitiesEntiti.specialities[index],
                         onTap: () async {
+                          context.read<GroupsCubit>().fetchGroups(
+                              "/groups/?speciality=${state.specialitiesEntiti.specialities[index]}");
                           await context.read<HomePageCubit>().saveSpecialities(
                               state.specialitiesEntiti.specialities[index]);
                           BottomSheets(context: context).schowGroupsBottomSheet(
@@ -92,25 +96,28 @@ class _SpecialitiesPageState extends State<SpecialitiesPage> {
               ),
             ),
             Expanded(
-              child: ListView.builder(
-                padding: const EdgeInsets.symmetric(vertical: 0),
-                physics: const BouncingScrollPhysics(),
-                itemCount: 6,
-                shrinkWrap: true,
-                itemBuilder: (context, index) {
-                  return CardLoading(
-                    height: 80,
-                    cardLoadingTheme: CardLoadingTheme(
-                      colorOne: const Color(0xfff5f5f5),
-                      colorTwo: Colors.grey[300]!,
-                    ),
-                    borderRadius: const BorderRadius.all(Radius.circular(15)),
-                    margin: const EdgeInsets.symmetric(
-                      horizontal: 50,
-                      vertical: 10,
-                    ),
-                  );
-                },
+              child: ScrollConfiguration(
+                behavior: MyBehavior(),
+                child: ListView.builder(
+                  padding: const EdgeInsets.symmetric(vertical: 0),
+                  physics: const ClampingScrollPhysics(),
+                  itemCount: 6,
+                  shrinkWrap: true,
+                  itemBuilder: (context, index) {
+                    return CardLoading(
+                      height: 80,
+                      cardLoadingTheme: CardLoadingTheme(
+                        colorOne: const Color(0xfff5f5f5),
+                        colorTwo: Colors.grey[300]!,
+                      ),
+                      borderRadius: const BorderRadius.all(Radius.circular(15)),
+                      margin: const EdgeInsets.symmetric(
+                        horizontal: 30,
+                        vertical: 10,
+                      ),
+                    );
+                  },
+                ),
               ),
             )
           ],
