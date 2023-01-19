@@ -1,15 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:schedule_mpt/core/helpers/values.dart';
 import 'package:schedule_mpt/feature/presentation/components/controller/schedule_builder_cubit.dart';
 import 'package:schedule_mpt/feature/presentation/hello_page/view/hello_page.dart';
 import 'package:schedule_mpt/feature/presentation/home_page/view/home_page.dart';
 
 import 'controller/schedule_builder_state.dart';
 
-class ScheduleBuilder extends StatelessWidget {
+class ScheduleBuilder extends StatefulWidget {
   const ScheduleBuilder({
     Key? key,
   }) : super(key: key);
+
+  @override
+  State<ScheduleBuilder> createState() => _ScheduleBuilderState();
+}
+
+class _ScheduleBuilderState extends State<ScheduleBuilder> {
+
+  
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,17 +40,4 @@ class ScheduleBuilder extends StatelessWidget {
       },
     );
   }
-
-  // void _showSnackBar(BuildContext context, dynamic error) {
-  //   ScaffoldMessenger.of(context).showSnackBar(
-  //     SnackBar(
-  //       duration: const Duration(seconds: 5),
-  //       content: SingleChildScrollView(
-  //           child: Text(
-  //         error.toString(),
-  //         maxLines: 5,
-  //       )),
-  //     ),
-  //   );
-  // }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:schedule_mpt/constants_images/theme.dart';
 
 class GroupsCard extends StatelessWidget {
   final String title;
@@ -22,15 +23,12 @@ class GroupsCard extends StatelessWidget {
           child: Center(
             child: Padding(
               padding: const EdgeInsets.all(10),
-              child: Text(
-                title,
-                style: const TextStyle(
-                  fontFamily: "Roboto",
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                ),
+              child: CustomText(
+                title: title,
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
                 textAlign: TextAlign.center,
+                color: Colors.white,
               ),
             ),
           ),

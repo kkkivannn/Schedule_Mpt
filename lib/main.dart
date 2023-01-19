@@ -3,6 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:provider/provider.dart';
+import 'package:schedule_mpt/constants_images/theme.dart';
+import 'package:schedule_mpt/core/helpers/themes/provider/theme_provider.dart';
 import 'package:schedule_mpt/feature/presentation/components/controller/schedule_builder_cubit.dart';
 import 'package:schedule_mpt/feature/presentation/groups_page.dart/controller/groups_page_cubit.dart';
 import 'package:schedule_mpt/feature/presentation/home_page/controller/home_page_cubit.dart';
@@ -21,8 +24,33 @@ Future<void> main() async {
   HydratedBloc.storage = await HydratedStorage.build(
     storageDirectory: await getApplicationDocumentsDirectory(),
   );
+
   runApp(
-    MultiBlocProvider(
+    ChangeNotifierProvider<UserThemeProvider>(
+      create: (_) => UserThemeProvider()..initialize(),
+      child: const MyApp(),
+    ),
+  );
+}
+
+class MyApp extends StatefulWidget {
+  const MyApp({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return MultiBlocProvider(
       providers: [
         BlocProvider<SpecialitiesCubit>(
             create: (context) => sl<SpecialitiesCubit>()),
@@ -39,12 +67,19 @@ Future<void> main() async {
           create: (context) => sl<AppBarCubit>(),
         ),
       ],
-      child: const MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Schedule MPT',
-        initialRoute: '/',
-        onGenerateRoute: RouteGenerator.generateRoute,
+      child: Consumer<UserThemeProvider>(
+        builder: (context, provider, child) {
+          return MaterialApp(
+            debugShowCheckedModeBanner: false,
+            theme: MyThemes.lightTheme,
+            darkTheme: MyThemes.darkTheme,
+            themeMode: provider.themeMode,
+            title: 'Schedule MPT',
+            initialRoute: '/',
+            onGenerateRoute: RouteGenerator.generateRoute,
+          );
+        },
       ),
-    ),
-  );
+    );
+  }
 }

@@ -2,9 +2,13 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:provider/provider.dart';
 import 'package:schedule_mpt/constants.dart';
 import 'package:schedule_mpt/constants_images/constants.dart';
+import 'package:schedule_mpt/constants_images/theme.dart';
 import 'package:schedule_mpt/core/helpers/functions.dart';
+import 'package:schedule_mpt/core/helpers/themes/provider/theme_provider.dart';
+import 'package:schedule_mpt/core/helpers/values.dart';
 import 'package:schedule_mpt/feature/presentation/groups_page.dart/view/groups_page.dart';
 import 'package:schedule_mpt/feature/presentation/home_page/controller/home_page_cubit.dart';
 import 'package:schedule_mpt/feature/presentation/home_page/controller/home_page_state.dart';
@@ -28,26 +32,32 @@ class _SettingsPageState extends State<SettingsPage> {
 
   @override
   Widget build(BuildContext context) {
+    final themeState = Provider.of<UserThemeProvider>(context);
     return BlocBuilder<HomePageCubit, HomePageState>(
       builder: (context, state) {
         return StreamBuilder<int>(
             initialData: 0,
             stream: stream.stream,
             builder: (context, snapshot) {
+              themeState.themeMode == ThemeMode.dark
+                  ? stream.sink.add(1)
+                  : themeState.themeMode == ThemeMode.light
+                      ? stream.sink.add(0)
+                      : stream.sink.add(2);
               return SafeArea(
                 child: ScrollConfiguration(
                   behavior: MyBehavior(),
                   child: ListView(
                     children: [
-                      const Padding(
-                        padding: EdgeInsets.only(top: 37, left: 23, bottom: 27),
-                        child: Text(
-                          'Настройки',
-                          style: TextStyle(
-                            fontFamily: 'Roboto',
-                            fontSize: 20,
-                            color: Colors.black,
-                          ),
+                      Padding(
+                        padding: const EdgeInsets.only(
+                            top: 37, left: 23, bottom: 27),
+                        child: CustomText(
+                          title: 'Настройки',
+                          fontSize: 20,
+                          color: Theme.of(context).brightness == Brightness.dark
+                              ? Colors.white
+                              : Colors.black,
                         ),
                       ),
                       SettingCardWidget(
@@ -62,16 +72,14 @@ class _SettingsPageState extends State<SettingsPage> {
                                 .read<HomePageCubit>()
                                 .getSpecialities()),
                       ),
-                      const Padding(
-                        padding: EdgeInsets.only(top: 40, left: 23, bottom: 5),
-                        child: Text(
-                          'Общая инфомация',
-                          style: TextStyle(
-                            color: Colors.grey,
-                            fontFamily: "Roboto",
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400,
-                          ),
+                      Padding(
+                        padding:
+                            const EdgeInsets.only(top: 40, left: 23, bottom: 5),
+                        child: CustomText(
+                          title: 'Общая инфомация',
+                          color: Colors.grey,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400,
                         ),
                       ),
                       SettingCardWidget(
@@ -93,16 +101,14 @@ class _SettingsPageState extends State<SettingsPage> {
                           }
                         },
                       ),
-                      const Padding(
-                        padding: EdgeInsets.only(top: 30, left: 23, bottom: 5),
-                        child: Text(
-                          'Тема оформления ',
-                          style: TextStyle(
-                            color: Colors.grey,
-                            fontFamily: "Roboto",
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400,
-                          ),
+                      Padding(
+                        padding:
+                            const EdgeInsets.only(top: 30, left: 23, bottom: 5),
+                        child: CustomText(
+                          title: 'Тема оформления ',
+                          color: Colors.grey,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400,
                         ),
                       ),
                       Padding(
@@ -111,29 +117,40 @@ class _SettingsPageState extends State<SettingsPage> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             GestureDetector(
-                              onTap: () {
+                              onTap: () async {
+                                await themeState.changeTheme('light');
                                 stream.sink.add(0);
                               },
                               child: ThemeCard(
                                 title: 'Светлая',
                                 icon: SvgImg.sun,
                                 data: snapshot.data!,
-                                isSelected: snapshot.data! == 0 ? true : false,
+                                isSelected:
+                                    themeState.themeMode == ThemeMode.light &&
+                                            snapshot.data == 0
+                                        ? true
+                                        : false,
                               ),
                             ),
                             GestureDetector(
-                              onTap: () {
+                              onTap: () async {
+                                await themeState.changeTheme('dark');
                                 stream.sink.add(1);
                               },
                               child: ThemeCard(
                                 title: 'Тёмная',
                                 icon: SvgImg.moon,
                                 data: snapshot.data!,
-                                isSelected: snapshot.data! == 1 ? true : false,
+                                isSelected:
+                                    themeState.themeMode == ThemeMode.dark &&
+                                            snapshot.data == 1
+                                        ? true
+                                        : false,
                               ),
                             ),
                             GestureDetector(
-                              onTap: () {
+                              onTap: () async {
+                                await themeState.changeTheme('system');
                                 stream.sink.add(2);
                               },
                               child: ThemeCard(

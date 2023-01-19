@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:schedule_mpt/constants_images/theme.dart';
 
 class NotHaveReplacementWidget extends StatelessWidget {
   const NotHaveReplacementWidget({super.key});
@@ -13,16 +14,15 @@ class NotHaveReplacementWidget extends StatelessWidget {
       margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 8.5),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
-        color: const Color(0xffEAE9E5),
+        color: Theme.of(context).brightness == Brightness.dark
+            ? const Color(0xff282720)
+            : const Color(0xffEAE9E5),
       ),
-      child: const Text(
-        'На этот день замен нет',
-        style: TextStyle(
-          fontFamily: "Roboto",
-          fontSize: 15,
-          fontWeight: FontWeight.w400,
-          color: Colors.grey,
-        ),
+      child: CustomText(
+        title: 'На этот день замен нет',
+        fontSize: 15,
+        fontWeight: FontWeight.w400,
+        color: Colors.grey,
       ),
     );
   }

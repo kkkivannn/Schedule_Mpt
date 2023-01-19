@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:schedule_mpt/constants_images/constants.dart';
+import 'package:schedule_mpt/constants_images/theme.dart';
 import 'package:schedule_mpt/feature/presentation/review/widgets/app_bar/controller/app_bar_cubit.dart';
 import 'package:schedule_mpt/feature/presentation/review/widgets/app_bar/controller/app_bar_state.dart';
 
@@ -36,7 +37,18 @@ class _AppBarWidgetState extends State<AppBarWidget> {
               // ),
               image: DecorationImage(
                 image: AssetImage(
-                    widget.week == "Числитель" ? Img.chisl : Img.znaml),
+                  widget.week == "Числитель" &&
+                          Theme.of(context).brightness == Brightness.dark
+                      ? Img.chislNight
+                      : widget.week == "Знаменатель" &&
+                              Theme.of(context).brightness == Brightness.dark
+                          ? Img.znamlNight
+                          : widget.week == "Числитель" &&
+                                  Theme.of(context).brightness ==
+                                      Brightness.light
+                              ? Img.chisl
+                              : Img.znaml,
+                ),
                 fit: BoxFit.fill,
               ),
             ),
@@ -46,9 +58,11 @@ class _AppBarWidgetState extends State<AppBarWidget> {
               children: [
                 Text(
                   widget.week,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontFamily: "Roboto",
-                    color: Colors.black,
+                    color: Theme.of(context).brightness == Brightness.dark
+                        ? Colors.white
+                        : Colors.black,
                     fontSize: 20,
                     fontWeight: FontWeight.w400,
                   ),
@@ -59,23 +73,21 @@ class _AppBarWidgetState extends State<AppBarWidget> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(
-                      "${WeekDay.days[state.weekDayAppBar]}, ",
-                      style: const TextStyle(
-                        fontFamily: "Roboto",
-                        color: Colors.black,
-                        fontSize: 20,
-                        fontWeight: FontWeight.w400,
-                      ),
+                    CustomText(
+                      title: "${WeekDay.days[state.weekDayAppBar]}, ",
+                      color: Theme.of(context).brightness == Brightness.dark
+                          ? Colors.white
+                          : Colors.black,
+                      fontSize: 20,
+                      fontWeight: FontWeight.w400,
                     ),
-                    Text(
-                      "${state.day} ${Months.months[state.month]}",
-                      style: const TextStyle(
-                        fontFamily: "Roboto",
-                        color: Colors.black,
-                        fontSize: 20,
-                        fontWeight: FontWeight.w400,
-                      ),
+                    CustomText(
+                      title: "${state.day} ${Months.months[state.month]}",
+                      color: Theme.of(context).brightness == Brightness.dark
+                          ? Colors.white
+                          : Colors.black,
+                      fontSize: 20,
+                      fontWeight: FontWeight.w400,
                     ),
                   ],
                 )
@@ -90,7 +102,17 @@ class _AppBarWidgetState extends State<AppBarWidget> {
             color: Colors.transparent,
             image: DecorationImage(
               image: AssetImage(
-                  widget.week == "Числитель" ? Img.chisl : Img.znaml),
+                widget.week == "Числитель" &&
+                        Theme.of(context).brightness == Brightness.dark
+                    ? Img.chislNight
+                    : widget.week == "Знаменатель" &&
+                            Theme.of(context).brightness == Brightness.dark
+                        ? Img.znamlNight
+                        : widget.week == "Числитель" &&
+                                Theme.of(context).brightness == Brightness.light
+                            ? Img.chisl
+                            : Img.znaml,
+              ),
               fit: BoxFit.fill,
             ),
           ),
@@ -98,14 +120,13 @@ class _AppBarWidgetState extends State<AppBarWidget> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text(
-                widget.week,
-                style: const TextStyle(
-                  fontFamily: "Roboto",
-                  color: Colors.black,
-                  fontSize: 20,
-                  fontWeight: FontWeight.w400,
-                ),
+              CustomText(
+                title: widget.week,
+                color: Theme.of(context).brightness == Brightness.dark
+                    ? Colors.white
+                    : Colors.black,
+                fontSize: 20,
+                fontWeight: FontWeight.w400,
               ),
               const SizedBox(
                 height: 10,
@@ -113,23 +134,21 @@ class _AppBarWidgetState extends State<AppBarWidget> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(
-                    "${WeekDay.days[weekDayAppBar]}, ",
-                    style: const TextStyle(
-                      fontFamily: "Roboto",
-                      color: Colors.black,
-                      fontSize: 20,
-                      fontWeight: FontWeight.w400,
-                    ),
+                  CustomText(
+                    title: "${WeekDay.days[weekDayAppBar]}, ",
+                    color: Theme.of(context).brightness == Brightness.dark
+                        ? Colors.white
+                        : Colors.black,
+                    fontSize: 20,
+                    fontWeight: FontWeight.w400,
                   ),
-                  Text(
-                    "$dayAppBar ${Months.months[monthAppBar]}",
-                    style: const TextStyle(
-                      fontFamily: "Roboto",
-                      color: Colors.black,
-                      fontSize: 20,
-                      fontWeight: FontWeight.w400,
-                    ),
+                  CustomText(
+                    title: "$dayAppBar ${Months.months[monthAppBar]}",
+                    color: Theme.of(context).brightness == Brightness.dark
+                        ? Colors.white
+                        : Colors.black,
+                    fontSize: 20,
+                    fontWeight: FontWeight.w400,
                   ),
                 ],
               )

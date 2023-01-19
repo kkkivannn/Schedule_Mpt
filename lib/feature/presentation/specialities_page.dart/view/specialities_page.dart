@@ -1,6 +1,7 @@
 import 'package:card_loading/card_loading.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:schedule_mpt/constants_images/theme.dart';
 import 'package:schedule_mpt/core/helpers/functions.dart';
 import 'package:schedule_mpt/feature/presentation/groups_page.dart/controller/groups_page_cubit.dart';
 import 'package:schedule_mpt/feature/presentation/groups_page.dart/view/groups_page.dart';
@@ -32,16 +33,14 @@ class _SpecialitiesPageState extends State<SpecialitiesPage> {
                 Container(
                   padding: const EdgeInsets.only(left: 20),
                   height: 80,
-                  child: const Align(
+                  child: Align(
                     alignment: Alignment.centerLeft,
-                    child: Text(
-                      'Выбери свою специальность',
-                      style: TextStyle(
-                        fontFamily: 'Roboto',
-                        fontSize: 18,
-                        fontWeight: FontWeight.w400,
-                      ),
+                    child: CustomText(
+                      title: 'Выбери свою специальность',
+                      fontSize: 18,
+                      fontWeight: FontWeight.w400,
                       textAlign: TextAlign.center,
+                      color: Colors.black,
                     ),
                   ),
                 ),

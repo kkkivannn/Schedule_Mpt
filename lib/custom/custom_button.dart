@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:scale_button/scale_button.dart';
 
+import '../constants_images/theme.dart';
+
 class CustomButton extends StatelessWidget {
   final String text;
   final Function() onTap;
@@ -27,13 +29,10 @@ class CustomButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(15),
         ),
         alignment: Alignment.center,
-        child: Text(
-          text,
-          style: TextStyle(
-            fontFamily: "Inter",
-            fontSize: 25,
-            color: textColor,
-          ),
+        child: CustomText(
+          title: text,
+          fontSize: 25,
+          color: textColor,
         ),
       ),
     );

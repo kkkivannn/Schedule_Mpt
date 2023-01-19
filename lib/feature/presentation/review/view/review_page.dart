@@ -74,7 +74,7 @@ class _ReviewPageState extends State<ReviewPage> {
                     child: Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
-                        color: Colors.grey[100],
+                        color: Theme.of(context).brightness == Brightness.dark ? Colors.grey[900] :  Colors.grey[100],
                       ),
                       margin: const EdgeInsets.only(bottom: 25),
                       padding: const EdgeInsets.symmetric(

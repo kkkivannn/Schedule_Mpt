@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../../constants_images/theme.dart';
+
 class NotHaveScheduleWidget extends StatelessWidget {
   const NotHaveScheduleWidget({super.key});
 
@@ -13,16 +15,15 @@ class NotHaveScheduleWidget extends StatelessWidget {
       margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 8.5),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
-        color: const Color(0xffEAE9E5),
+        color: Theme.of(context).brightness == Brightness.dark
+            ? const Color(0xff282720)
+            : const Color(0xffEAE9E5),
       ),
-      child: const Text(
-        'На этот день занятий нет',
-        style: TextStyle(
-          fontFamily: "Roboto",
-          fontSize: 15,
-          fontWeight: FontWeight.w400,
-          color: Colors.grey,
-        ),
+      child: CustomText(
+        title: 'На этот день занятий нет',
+        fontSize: 15,
+        fontWeight: FontWeight.w400,
+        color: Colors.grey,
       ),
     );
   }

@@ -1,6 +1,7 @@
 import 'package:card_loading/card_loading.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:schedule_mpt/constants_images/theme.dart';
 import 'package:schedule_mpt/feature/presentation/components/controller/schedule_builder_cubit.dart';
 import 'package:schedule_mpt/feature/presentation/groups_page.dart/controller/groups_page_cubit.dart';
 import 'package:schedule_mpt/feature/presentation/home_page/controller/home_page_cubit.dart';
@@ -37,14 +38,11 @@ class _GroupsPageState extends State<GroupsPage> {
                   padding: const EdgeInsets.only(left: 20, top: 30),
                   child: Align(
                     alignment: Alignment.centerLeft,
-                    child: Text(
-                      'Специальность: ${widget.specialities}',
-                      style: const TextStyle(
-                        fontFamily: 'Roboto',
-                        fontSize: 14,
-                        color: Colors.grey,
-                        fontWeight: FontWeight.w400,
-                      ),
+                    child: CustomText(
+                      title: 'Специальность: ${widget.specialities}',
+                      fontSize: 14,
+                      color: Colors.grey,
+                      fontWeight: FontWeight.w400,
                       textAlign: TextAlign.center,
                     ),
                   ),
@@ -52,16 +50,14 @@ class _GroupsPageState extends State<GroupsPage> {
                 Container(
                   padding: const EdgeInsets.only(left: 20),
                   height: 30,
-                  child: const Align(
+                  child: Align(
                     alignment: Alignment.centerLeft,
-                    child: Text(
-                      'Найди свою группу',
-                      style: TextStyle(
-                        fontFamily: 'Roboto',
-                        fontSize: 18,
-                        fontWeight: FontWeight.w400,
-                      ),
+                    child: CustomText(
+                      title: 'Найди свою группу',
+                      fontSize: 18,
+                      fontWeight: FontWeight.w400,
                       textAlign: TextAlign.center,
+                      color: Colors.black,
                     ),
                   ),
                 ),
@@ -151,6 +147,7 @@ class _GroupsPageState extends State<GroupsPage> {
     );
   }
 }
+
 class MyBehavior extends ScrollBehavior {
   @override
   Widget buildOverscrollIndicator(

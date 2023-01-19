@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:schedule_mpt/constants_images/theme.dart';
 import 'package:schedule_mpt/feature/domain/entiti/schedule/schedule_entiti/schedule_entiti.dart';
 import 'package:schedule_mpt/feature/presentation/components/controller/schedule_builder_cubit.dart';
 import 'package:schedule_mpt/feature/presentation/home_page/controller/home_page_cubit.dart';
@@ -52,38 +53,41 @@ class _ScheduleState extends State<Schedule> {
                         ),
                         child: Row(
                           children: [
-                            const Text(
-                              "Расписание ",
-                              style: TextStyle(
-                                fontFamily: "Roboto",
-                                fontSize: 15,
-                                fontWeight: FontWeight.w400,
-                              ),
+                            CustomText(
+                              title: "Расписание ",
+                              fontSize: 15,
+                              fontWeight: FontWeight.w400,
+                              color: Theme.of(context).brightness ==
+                                      Brightness.dark
+                                  ? Colors.white
+                                  : Colors.black,
                             ),
                             widget.scheduleEntiti.length > 5 &&
                                     widget.weekDay == 5
-                                ? Text(
-                                    "(${widget.scheduleEntiti[widget.weekDay].info.place})",
-                                    style: const TextStyle(
-                                      fontFamily: "Roboto",
-                                      fontSize: 15,
-                                      color: Colors.grey,
-                                      fontWeight: FontWeight.w400,
-                                    ),
+                                ? CustomText(
+                                    title:
+                                        "(${widget.scheduleEntiti[widget.weekDay].info.place})",
+                                    fontSize: 15,
+                                    color: Colors.grey,
+                                    fontWeight: FontWeight.w400,
                                   )
                                 : widget.scheduleEntiti.length == 5 &&
                                         widget.weekDay == 5
                                     ? Container()
                                     : widget.weekDay == 6
                                         ? Container()
-                                        : Text(
-                                            "(${widget.scheduleEntiti[widget.weekDay].info.place})",
-                                            style: const TextStyle(
-                                              fontFamily: "Roboto",
-                                              fontSize: 15,
-                                              color: Colors.grey,
-                                              fontWeight: FontWeight.w400,
-                                            ),
+                                        : CustomText(
+                                            title: widget
+                                                        .scheduleEntiti[
+                                                            widget.weekDay]
+                                                        .info
+                                                        .place ==
+                                                    'Место не найдено'
+                                                ? ''
+                                                : "(${widget.scheduleEntiti[widget.weekDay].info.place})",
+                                            fontSize: 15,
+                                            color: Colors.grey,
+                                            fontWeight: FontWeight.w400,
                                           ),
                           ],
                         ),

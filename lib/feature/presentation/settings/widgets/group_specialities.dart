@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:schedule_mpt/constants_images/theme.dart';
 
 class SettingCardWidget extends StatelessWidget {
   final String title;
@@ -18,19 +19,20 @@ class SettingCardWidget extends StatelessWidget {
         ),
         padding: const EdgeInsets.symmetric(horizontal: 10),
         decoration: BoxDecoration(
-          color: const Color(0xffEAE9E5),
+          color: Theme.of(context).brightness == Brightness.dark
+              ? const Color(0xff282720)
+              : const Color(0xffEAE9E5),
           borderRadius: BorderRadius.circular(10),
         ),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text(
-              title,
-              style: const TextStyle(
-                fontFamily: 'Roboto',
-                fontSize: 15,
-                color: Colors.black,
-              ),
+            CustomText(
+              title: title,
+              fontSize: 15,
+              color: Theme.of(context).brightness == Brightness.dark
+                  ? Colors.white
+                  : Colors.black,
             ),
             const Spacer(),
             Icon(

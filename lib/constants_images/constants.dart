@@ -13,6 +13,8 @@ class Img {
   static const String backGround = 'assets/images/background.png';
   static const String chisl = 'assets/images/chisl.png';
   static const String znaml = 'assets/images/znam.png';
+  static const String znamlNight = 'assets/images/znamNight.png';
+  static const String chislNight = 'assets/images/chislNight.png';
 }
 
 class WeekDay {
@@ -66,10 +68,12 @@ class TimeLessons {
     '12:00\n13:30',
     '14:00\n15:30',
     '15:40\n17:10',
+    "",
   ];
 }
-class WeekDayForReview{
-   static const List<int> weekDay = [
+
+class WeekDayForReview {
+  static const List<int> weekDay = [
     0,
     0,
     1,

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:schedule_mpt/constants_images/constants.dart';
+import 'package:schedule_mpt/constants_images/theme.dart';
 import 'package:schedule_mpt/core/helpers/functions.dart';
 import 'package:schedule_mpt/custom/custom_button.dart';
 import 'package:schedule_mpt/feature/presentation/home_page/controller/home_page_state.dart';
@@ -38,22 +39,19 @@ class _HelloPageState extends State<HelloPage> {
                     color: const Color(0xff464D70),
                   ),
                 ),
-                const Padding(
-                  padding: EdgeInsets.only(top: 60, bottom: 10),
-                  child: Text(
-                    'Привет, студент МПТ',
-                    style: TextStyle(
-                      fontSize: 30,
-                      fontFamily: "Inter",
-                    ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 60, bottom: 10),
+                  child: CustomText(
+                    title: 'Привет, студент МПТ',
+                    fontSize: 30,
+                    color: Colors.black,
                   ),
                 ),
-                const Text(
-                  'Для загрузки расписания выбери\nспециальность и группу',
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontFamily: "Inter",
-                  ),
+                CustomText(
+                  title:
+                      'Для загрузки расписания выбери\nспециальность и группу',
+                  fontSize: 16,
+                  color: Colors.black,
                   textAlign: TextAlign.center,
                 ),
                 Padding(

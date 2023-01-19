@@ -5,6 +5,7 @@ import 'package:schedule_mpt/constants_images/constants.dart';
 import 'package:schedule_mpt/feature/presentation/groups_page.dart/view/groups_page.dart';
 import 'package:schedule_mpt/feature/presentation/home_page/controller/home_page_cubit.dart';
 
+import '../../../../constants_images/theme.dart';
 import '../../../../core/helpers/values.dart';
 import '../../components/controller/schedule_builder_cubit.dart';
 import '../../components/controller/schedule_builder_state.dart';
@@ -46,13 +47,17 @@ class _SchedulePageState extends State<SchedulePage> {
                         children: [
                           Padding(
                             padding: const EdgeInsets.symmetric(vertical: 10),
-                            child: Text(
-                              "${WeekScheduleDay.days[index]} (${state.scheduleEntiti[index].info.place})",
-                              style: const TextStyle(
-                                fontFamily: "Roboto",
-                                fontSize: 15,
-                                fontWeight: FontWeight.w400,
-                              ),
+                            child: CustomText(
+                              title: state.scheduleEntiti[index].info.place ==
+                                      'Место не найдено'
+                                  ? WeekScheduleDay.days[index]
+                                  : "${state.scheduleEntiti[index].info.day} (${state.scheduleEntiti[index].info.place})",
+                              fontSize: 15,
+                              fontWeight: FontWeight.w400,
+                              color: Theme.of(context).brightness ==
+                                      Brightness.dark
+                                  ? Colors.white
+                                  : Colors.black,
                             ),
                           ),
                           ...List.generate(
@@ -65,7 +70,10 @@ class _SchedulePageState extends State<SchedulePage> {
                               ),
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10),
-                                color: const Color(0xffEAE9E5),
+                                color: Theme.of(context).brightness ==
+                                        Brightness.dark
+                                    ? const Color(0xff282720)
+                                    : const Color(0xffEAE9E5),
                               ),
                               child: Padding(
                                 padding: const EdgeInsets.symmetric(
@@ -74,9 +82,14 @@ class _SchedulePageState extends State<SchedulePage> {
                                 child: Row(
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
-                                    Text(
-                                      state.scheduleEntiti[index].subjects[i]
-                                          .number,
+                                    CustomText(
+                                      title: state.scheduleEntiti[index]
+                                          .subjects[i].number,
+                                      color: Theme.of(context).brightness ==
+                                              Brightness.dark
+                                          ? Colors.white
+                                          : Colors.black,
+                                      fontSize: 15,
                                     ),
                                     Expanded(
                                       flex: 7,
@@ -99,33 +112,29 @@ class _SchedulePageState extends State<SchedulePage> {
                                                 crossAxisAlignment:
                                                     CrossAxisAlignment.start,
                                                 children: [
-                                                  Text(
-                                                    state
+                                                  CustomText(
+                                                    title: state
                                                         .scheduleEntiti[index]
                                                         .subjects[i]
                                                         .subject
                                                         .sub,
-                                                    style: const TextStyle(
-                                                      fontFamily: "Roboto",
-                                                      fontSize: 15,
-                                                      fontWeight:
-                                                          FontWeight.w400,
-                                                      color: Colors.black,
-                                                    ),
+                                                    fontSize: 15,
+                                                    fontWeight: FontWeight.w400,
+                                                    color: Theme.of(context)
+                                                                .brightness ==
+                                                            Brightness.dark
+                                                        ? Colors.white
+                                                        : Colors.black,
                                                   ),
-                                                  Text(
-                                                    state
+                                                  CustomText(
+                                                    title: state
                                                         .scheduleEntiti[index]
                                                         .subjects[i]
                                                         .teacher
                                                         .tech,
-                                                    style: const TextStyle(
-                                                      fontFamily: "Roboto",
-                                                      fontSize: 15,
-                                                      fontWeight:
-                                                          FontWeight.w400,
-                                                      color: Colors.grey,
-                                                    ),
+                                                    fontSize: 15,
+                                                    fontWeight: FontWeight.w400,
+                                                    color: Colors.grey,
                                                   ),
                                                 ],
                                               )
@@ -145,8 +154,13 @@ class _SchedulePageState extends State<SchedulePage> {
                                                       borderRadius:
                                                           BorderRadius.circular(
                                                               10),
-                                                      color: const Color(
-                                                          0xffFCEAEA),
+                                                      color: Theme.of(context)
+                                                                  .brightness ==
+                                                              Brightness.dark
+                                                          ? const Color(
+                                                              0xffCB9292)
+                                                          : const Color(
+                                                              0xffFCEAEA),
                                                     ),
                                                     child: Column(
                                                       mainAxisAlignment:
@@ -156,8 +170,8 @@ class _SchedulePageState extends State<SchedulePage> {
                                                           CrossAxisAlignment
                                                               .start,
                                                       children: [
-                                                        Text(
-                                                          state
+                                                        CustomText(
+                                                          title: state
                                                                       .scheduleEntiti[
                                                                           index]
                                                                       .subjects[
@@ -172,15 +186,15 @@ class _SchedulePageState extends State<SchedulePage> {
                                                                   .subjects[i]
                                                                   .subject
                                                                   .numerator,
-                                                          style:
-                                                              const TextStyle(
-                                                            fontFamily:
-                                                                "Roboto",
-                                                            fontSize: 15,
-                                                            fontWeight:
-                                                                FontWeight.w400,
-                                                            color: Colors.black,
-                                                          ),
+                                                          fontSize: 15,
+                                                          fontWeight:
+                                                              FontWeight.w400,
+                                                          color: Theme.of(context)
+                                                                      .brightness ==
+                                                                  Brightness
+                                                                      .dark
+                                                              ? Colors.white
+                                                              : Colors.black,
                                                         ),
                                                         state
                                                                     .scheduleEntiti[
@@ -192,24 +206,25 @@ class _SchedulePageState extends State<SchedulePage> {
                                                             ? Container(
                                                                 width: 1,
                                                               )
-                                                            : Text(
-                                                                state
+                                                            : CustomText(
+                                                                title: state
                                                                     .scheduleEntiti[
                                                                         index]
                                                                     .subjects[i]
                                                                     .teacher
                                                                     .numerator,
-                                                                style:
-                                                                    const TextStyle(
-                                                                  fontFamily:
-                                                                      "Roboto",
-                                                                  fontSize: 15,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w400,
-                                                                  color: Colors
-                                                                      .grey,
-                                                                ),
+                                                                fontSize: 15,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w400,
+                                                                color: Theme.of(context)
+                                                                            .brightness ==
+                                                                        Brightness
+                                                                            .dark
+                                                                    ? Colors.grey[
+                                                                        300]
+                                                                    : Colors
+                                                                        .grey,
                                                               ),
                                                       ],
                                                     ),
@@ -227,8 +242,13 @@ class _SchedulePageState extends State<SchedulePage> {
                                                       borderRadius:
                                                           BorderRadius.circular(
                                                               10),
-                                                      color: const Color(
-                                                          0xffECF2F9),
+                                                      color: Theme.of(context)
+                                                                  .brightness ==
+                                                              Brightness.dark
+                                                          ? const Color(
+                                                              0xff7398B2)
+                                                          : const Color(
+                                                              0xffECF2F9),
                                                     ),
                                                     child: Column(
                                                       mainAxisAlignment:
@@ -238,8 +258,8 @@ class _SchedulePageState extends State<SchedulePage> {
                                                           CrossAxisAlignment
                                                               .start,
                                                       children: [
-                                                        Text(
-                                                          state
+                                                        CustomText(
+                                                          title: state
                                                                       .scheduleEntiti[
                                                                           index]
                                                                       .subjects[
@@ -254,15 +274,15 @@ class _SchedulePageState extends State<SchedulePage> {
                                                                   .subjects[i]
                                                                   .subject
                                                                   .denominator,
-                                                          style:
-                                                              const TextStyle(
-                                                            fontFamily:
-                                                                "Roboto",
-                                                            fontSize: 15,
-                                                            fontWeight:
-                                                                FontWeight.w400,
-                                                            color: Colors.black,
-                                                          ),
+                                                          fontSize: 15,
+                                                          fontWeight:
+                                                              FontWeight.w400,
+                                                          color: Theme.of(context)
+                                                                      .brightness ==
+                                                                  Brightness
+                                                                      .dark
+                                                              ? Colors.white
+                                                              : Colors.black,
                                                         ),
                                                         state
                                                                     .scheduleEntiti[
@@ -274,24 +294,25 @@ class _SchedulePageState extends State<SchedulePage> {
                                                             ? Container(
                                                                 width: 1,
                                                               )
-                                                            : Text(
-                                                                state
+                                                            : CustomText(
+                                                                title: state
                                                                     .scheduleEntiti[
                                                                         index]
                                                                     .subjects[i]
                                                                     .teacher
                                                                     .denominator,
-                                                                style:
-                                                                    const TextStyle(
-                                                                  fontFamily:
-                                                                      "Roboto",
-                                                                  fontSize: 15,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w400,
-                                                                  color: Colors
-                                                                      .grey,
-                                                                ),
+                                                                fontSize: 15,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w400,
+                                                                color: Theme.of(context)
+                                                                            .brightness ==
+                                                                        Brightness
+                                                                            .dark
+                                                                    ? Colors.grey[
+                                                                        300]
+                                                                    : Colors
+                                                                        .grey,
                                                               ),
                                                       ],
                                                     ),
@@ -302,13 +323,17 @@ class _SchedulePageState extends State<SchedulePage> {
                                     ),
                                     Container(
                                       margin: const EdgeInsets.only(left: 4),
-                                      child: Text(
-                                        TimeLessons.times[int.parse(state
+                                      child: CustomText(
+                                        title: TimeLessons.times[int.parse(state
                                             .scheduleEntiti[index]
                                             .subjects[i]
                                             .number)],
-                                        style: const TextStyle(),
                                         textAlign: TextAlign.right,
+                                        fontSize: 15,
+                                        color: Theme.of(context).brightness ==
+                                                Brightness.dark
+                                            ? Colors.white
+                                            : Colors.black,
                                       ),
                                     ),
                                   ],

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:schedule_mpt/constants_images/constants.dart';
+import 'package:schedule_mpt/constants_images/theme.dart';
 import 'package:schedule_mpt/feature/domain/entiti/schedule/schedule_entiti/schedule_entiti.dart';
 
 class ScheduleCardWidget extends StatelessWidget {
@@ -23,7 +24,9 @@ class ScheduleCardWidget extends StatelessWidget {
       ),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
-        color: const Color(0xffEAE9E5),
+        color: Theme.of(context).brightness == Brightness.dark
+            ? const Color(0xff282720)
+            : const Color(0xffEAE9E5),
       ),
       child: Padding(
         padding: const EdgeInsets.symmetric(
@@ -32,8 +35,12 @@ class ScheduleCardWidget extends StatelessWidget {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text(
-              scheduleEntiti[weekDay].subjects[index].number,
+            CustomText(
+              title: scheduleEntiti[weekDay].subjects[index].number,
+              color: Theme.of(context).brightness == Brightness.dark
+                  ? Colors.white
+                  : Colors.black,
+              fontSize: 15,
             ),
             Expanded(
               flex: 7,
@@ -52,26 +59,26 @@ class ScheduleCardWidget extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            scheduleEntiti[weekDay].subjects[index].subject.sub,
-                            style: const TextStyle(
-                              fontFamily: "Roboto",
-                              fontSize: 15,
-                              fontWeight: FontWeight.w400,
-                              color: Colors.black,
-                            ),
+                          CustomText(
+                            title: scheduleEntiti[weekDay]
+                                .subjects[index]
+                                .subject
+                                .sub,
+                            fontSize: 15,
+                            fontWeight: FontWeight.w400,
+                            color:
+                                Theme.of(context).brightness == Brightness.dark
+                                    ? Colors.white
+                                    : Colors.black,
                           ),
-                          Text(
-                            scheduleEntiti[weekDay]
+                          CustomText(
+                            title: scheduleEntiti[weekDay]
                                 .subjects[index]
                                 .teacher
                                 .tech,
-                            style: const TextStyle(
-                              fontFamily: "Roboto",
-                              fontSize: 15,
-                              fontWeight: FontWeight.w400,
-                              color: Colors.grey,
-                            ),
+                            fontSize: 15,
+                            fontWeight: FontWeight.w400,
+                            color: Colors.grey,
                           ),
                         ],
                       )
@@ -86,13 +93,16 @@ class ScheduleCardWidget extends StatelessWidget {
                             ),
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10),
-                                color: const Color(0xffFCEAEA)),
+                                color: Theme.of(context).brightness ==
+                                        Brightness.dark
+                                    ? const Color(0xffCB9292)
+                                    : const Color(0xffFCEAEA)),
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(
-                                  scheduleEntiti[weekDay]
+                                CustomText(
+                                  title: scheduleEntiti[weekDay]
                                               .subjects[index]
                                               .subject
                                               .numerator ==
@@ -102,12 +112,12 @@ class ScheduleCardWidget extends StatelessWidget {
                                           .subjects[index]
                                           .subject
                                           .numerator,
-                                  style: const TextStyle(
-                                    fontFamily: "Roboto",
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.w400,
-                                    color: Colors.black,
-                                  ),
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w400,
+                                  color: Theme.of(context).brightness ==
+                                          Brightness.dark
+                                      ? Colors.white
+                                      : Colors.black,
                                 ),
                                 scheduleEntiti[weekDay]
                                             .subjects[index]
@@ -117,17 +127,17 @@ class ScheduleCardWidget extends StatelessWidget {
                                     ? Container(
                                         width: 1,
                                       )
-                                    : Text(
-                                        scheduleEntiti[weekDay]
+                                    : CustomText(
+                                        title: scheduleEntiti[weekDay]
                                             .subjects[index]
                                             .teacher
                                             .numerator,
-                                        style: const TextStyle(
-                                          fontFamily: "Roboto",
-                                          fontSize: 15,
-                                          fontWeight: FontWeight.w400,
-                                          color: Colors.grey,
-                                        ),
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.w400,
+                                        color: Theme.of(context).brightness ==
+                                                Brightness.dark
+                                            ? Colors.grey[300]
+                                            : Colors.grey,
                                       ),
                               ],
                             ),
@@ -142,14 +152,17 @@ class ScheduleCardWidget extends StatelessWidget {
                             ),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10),
-                              color: const Color(0xffECF2F9),
+                              color: Theme.of(context).brightness ==
+                                      Brightness.dark
+                                  ? const Color(0xff7398B2)
+                                  : const Color(0xffECF2F9),
                             ),
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(
-                                  scheduleEntiti[weekDay]
+                                CustomText(
+                                  title: scheduleEntiti[weekDay]
                                               .subjects[index]
                                               .subject
                                               .denominator ==
@@ -159,12 +172,12 @@ class ScheduleCardWidget extends StatelessWidget {
                                           .subjects[index]
                                           .subject
                                           .denominator,
-                                  style: const TextStyle(
-                                    fontFamily: "Roboto",
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.w400,
-                                    color: Colors.black,
-                                  ),
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w400,
+                                  color: Theme.of(context).brightness ==
+                                          Brightness.dark
+                                      ? Colors.white
+                                      : Colors.black,
                                 ),
                                 scheduleEntiti[weekDay]
                                             .subjects[index]
@@ -174,17 +187,17 @@ class ScheduleCardWidget extends StatelessWidget {
                                     ? Container(
                                         width: 1,
                                       )
-                                    : Text(
-                                        scheduleEntiti[weekDay]
+                                    : CustomText(
+                                        title: scheduleEntiti[weekDay]
                                             .subjects[index]
                                             .teacher
                                             .denominator,
-                                        style: const TextStyle(
-                                          fontFamily: "Roboto",
-                                          fontSize: 15,
-                                          fontWeight: FontWeight.w400,
-                                          color: Colors.grey,
-                                        ),
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.w400,
+                                        color: Theme.of(context).brightness ==
+                                                Brightness.dark
+                                            ? Colors.grey[300]
+                                            : Colors.grey,
                                       ),
                               ],
                             ),
