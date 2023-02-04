@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class UserThemeProvider extends ChangeNotifier {
@@ -27,7 +26,7 @@ class UserThemeProvider extends ChangeNotifier {
   initialize() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    currentTheme = prefs.getString('theme') ?? 'system';
+    currentTheme = prefs.getString('theme') ?? 'light';
     notifyListeners();
   }
 }

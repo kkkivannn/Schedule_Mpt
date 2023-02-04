@@ -22,10 +22,30 @@ class ReviewPage extends StatefulWidget {
 
 class _ReviewPageState extends State<ReviewPage> {
   late PageController pageController;
+  List<Widget> pages = [];
+  void pagesCahnged() {
+    for (var i = weekDay; pages.length < 3; i++) {
+      if (i > 6) {
+        i = 0;
+        pages.add(
+          Schedule(
+            itemPage: i,
+          ),
+        );
+      } else {
+        pages.add(
+          Schedule(
+            itemPage: i,
+          ),
+        );
+      }
+    }
+  }
 
   @override
   void initState() {
-    pageController = PageController(initialPage: 0, keepPage: true);
+    pageController = PageController( keepPage: true);
+    pagesCahnged();
     super.initState();
   }
 
@@ -52,19 +72,17 @@ class _ReviewPageState extends State<ReviewPage> {
                     itemCount: 3,
                     physics: const ClampingScrollPhysics(),
                     onPageChanged: (value) async {
-                      context.read<AppBarCubit>().updateValueInAppBar(value);
-                      print("день недели: $weekDayAppBar");
-                      print("день: $dayAppBar");
-                      print("месяц: $monthAppBar");
-                      setState(() {});
+                      setState(() {
+                        context.read<AppBarCubit>().updateValueInAppBar(value);
+                        print("день недели: $weekDayAppBar");
+                        print("день: $dayAppBar");
+                        print("месяц: $monthAppBar");
+                      });
                     },
                     itemBuilder: (context, itemPage) {
                       return Stack(
                         children: [
-                          Schedule(
-                            scheduleEntiti: state.scheduleEntiti,
-                            weekDay: weekDay,
-                          ),
+                          pages[itemPage],
                         ],
                       );
                     },
@@ -74,7 +92,9 @@ class _ReviewPageState extends State<ReviewPage> {
                     child: Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
-                        color: Theme.of(context).brightness == Brightness.dark ? Colors.grey[900] :  Colors.grey[100],
+                        color: Theme.of(context).brightness == Brightness.dark
+                            ? Colors.grey[900]
+                            : Colors.grey[100],
                       ),
                       margin: const EdgeInsets.only(bottom: 25),
                       padding: const EdgeInsets.symmetric(

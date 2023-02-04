@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_displaymode/flutter_displaymode.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:path_provider/path_provider.dart';
@@ -15,11 +17,18 @@ import 'package:schedule_mpt/rout_generator.dart';
 import 'injection.container.dart' as di;
 import 'injection.container.dart';
 
+Future<void> frameRate() async {
+  try {
+    await FlutterDisplayMode.setHighRefreshRate();
+  } on PlatformException catch (_) {
+    await FlutterDisplayMode.setLowRefreshRate();
+  }
+}
+
 Future<void> main() async {
   await Hive.initFlutter();
   await Hive.openBox<dynamic>('ScheduleMpt');
   await di.init();
-
   WidgetsFlutterBinding.ensureInitialized();
   HydratedBloc.storage = await HydratedStorage.build(
     storageDirectory: await getApplicationDocumentsDirectory(),
@@ -31,6 +40,8 @@ Future<void> main() async {
       child: const MyApp(),
     ),
   );
+  await frameRate();
+
 }
 
 class MyApp extends StatefulWidget {

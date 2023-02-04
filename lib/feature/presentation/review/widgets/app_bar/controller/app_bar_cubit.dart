@@ -1,4 +1,4 @@
-import 'package:hydrated_bloc/hydrated_bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:schedule_mpt/core/helpers/functions.dart';
 import 'package:schedule_mpt/feature/presentation/review/widgets/app_bar/controller/app_bar_state.dart';
 
