@@ -13,10 +13,12 @@ class ScheduleBuilderCubit extends Cubit<ScheduleBuilderState> {
     try {
       emit(IsEmptySchedule());
       final isHaveSchedule = await scheduleLocalDatasource.getSchedule();
-      final scheduleEntiti = await scheduleLocalDatasource.getSavesSchedule();
+
       final isHaveWeek = await scheduleLocalDatasource.isHaveWeek();
-      final weekEntiti = await scheduleLocalDatasource.getWeek();
+
       if (isHaveSchedule && isHaveWeek) {
+        final weekEntiti = await scheduleLocalDatasource.getWeek();
+        final scheduleEntiti = await scheduleLocalDatasource.getSavesSchedule();
         emit(
           IsHaveSchedule(
               scheduleEntiti: scheduleEntiti, weekEntiti: weekEntiti),
@@ -26,12 +28,13 @@ class ScheduleBuilderCubit extends Cubit<ScheduleBuilderState> {
       emit(IsNotHaveSchedule());
     }
   }
-  Future<bool> toNextPage()async{
+
+  Future<bool> toNextPage() async {
     final isHaveSchedule = await scheduleLocalDatasource.getSchedule();
     final isHaveWeek = await scheduleLocalDatasource.isHaveWeek();
     if (isHaveSchedule && isHaveWeek) {
       return true;
-    }else{
+    } else {
       return false;
     }
   }

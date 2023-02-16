@@ -1,4 +1,4 @@
-const String baseUrl = "http://194.26.138.91:8085/";
+const String baseUrl = "http://94.198.219.88:8085/";
 const String urlReference = 'https://student.mpt.ru/';
 const String SERVER_FAILURE_MESSAGE = 'Server Failure';
 const String CACHED_FAILURE_MESSAGE = 'Cache Failure';

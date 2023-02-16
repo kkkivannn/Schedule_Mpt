@@ -20,6 +20,14 @@ class GroupsPage extends StatefulWidget {
 }
 
 class _GroupsPageState extends State<GroupsPage> {
+  Future<void> functions(Function() getScheduleAndWeek, Function() getSchedule,
+      Function() onPage, Function() saveGroup) async {
+    await saveGroup();
+    await getScheduleAndWeek();
+    await getSchedule();
+    await onPage();
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<GroupsCubit, GroupsState>(
@@ -73,15 +81,18 @@ class _GroupsPageState extends State<GroupsPage> {
                         return GroupsCard(
                           title: state.groupsEntiti.groups[index],
                           onTap: () async {
-                            context
-                                .read<HomePageCubit>()
-                                .saveGroup(state.groupsEntiti.groups[index]);
-                            await context.read<HomePageCubit>().fetchSchedule(
-                                '/timetable/?number_group=${state.groupsEntiti.groups[index]}',
-                                '/week/');
-                            context.read<ScheduleBuilderCubit>().getSchedule();
-                            Navigator.of(context).pushNamedAndRemoveUntil(
-                                "/HomePage", (route) => false);
+                            functions(
+                                () => context.read<HomePageCubit>().fetchSchedule(
+                                    '/timetable/?number_group=${state.groupsEntiti.groups[index]}',
+                                    '/week/'),
+                                () => context
+                                    .read<ScheduleBuilderCubit>()
+                                    .getSchedule(),
+                                () => Navigator.of(context)
+                                    .pushNamedAndRemoveUntil(
+                                        "/HomePage", (route) => false),
+                                () => context.read<HomePageCubit>().saveGroup(
+                                    state.groupsEntiti.groups[index]));
                           },
                         );
                       },

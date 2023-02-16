@@ -26,10 +26,10 @@ class ScheduleLocalDatasorceImplement implements ScheduleLocalDatasource {
   }
 
   @override
-  Future<void> saveSchedule(List<ScheduleDto> scheduleDto) {
+  Future<void> saveSchedule(List<ScheduleDto> scheduleDto) async {
     final List<String> scheduleDtoList =
         scheduleDto.map((schedule) => json.encode(schedule.toJson())).toList();
-    return sharedPreferences.setStringList(SAVED_SCHEDULE, scheduleDtoList);
+    await sharedPreferences.setStringList(SAVED_SCHEDULE, scheduleDtoList);
   }
 
   @override
@@ -53,9 +53,8 @@ class ScheduleLocalDatasorceImplement implements ScheduleLocalDatasource {
   }
 
   @override
-  Future<void> saveWeek(WeekDto weekDto) {
-    return sharedPreferences.setString(
-        SAVED_WEEK, jsonEncode(weekDto.toJson()));
+  Future<void> saveWeek(WeekDto weekDto) async {
+    await sharedPreferences.setString(SAVED_WEEK, jsonEncode(weekDto.toJson()));
   }
 
   @override
@@ -69,10 +68,10 @@ class ScheduleLocalDatasorceImplement implements ScheduleLocalDatasource {
   }
 
   @override
-  Future<void> saveGroup(String group) {
-    return sharedPreferences.setString(SAVED_USER_GROUP, group);
+  Future<void> saveGroup(String group) async {
+    await sharedPreferences.setString(SAVED_USER_GROUP, group);
   }
-
+q
   @override
   Future<String> getGroup() async {
     final group = sharedPreferences.getString(SAVED_USER_GROUP);
@@ -96,7 +95,7 @@ class ScheduleLocalDatasorceImplement implements ScheduleLocalDatasource {
   }
 
   @override
-  Future<void> saveSpecialities(String specialities) {
-    return sharedPreferences.setString(SAVED_USER_SPECIALITIES, specialities);
+  Future<void> saveSpecialities(String specialities) async {
+    await sharedPreferences.setString(SAVED_USER_SPECIALITIES, specialities);
   }
 }
