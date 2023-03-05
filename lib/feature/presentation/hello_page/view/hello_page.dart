@@ -39,15 +39,15 @@ class _HelloPageState extends State<HelloPage> {
                     color: const Color(0xff464D70),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 60, bottom: 10),
+                const Padding(
+                  padding: EdgeInsets.only(top: 60, bottom: 10),
                   child: CustomText(
                     title: 'Привет, студент МПТ',
                     fontSize: 30,
                     color: Colors.black,
                   ),
                 ),
-                CustomText(
+                const CustomText(
                   title:
                       'Для загрузки расписания выбери\nспециальность и группу',
                   fontSize: 16,

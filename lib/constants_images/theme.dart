@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
 
-import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
-
 class CustomText extends StatelessWidget {
   final String title;
   final double fontSize;
   final Color? color;
-  FontWeight? fontWeight;
-  TextAlign? textAlign;
-  CustomText({
+  final FontWeight? fontWeight;
+  final TextAlign? textAlign;
+  const CustomText({
     super.key,
     required this.fontSize,
     this.color,

@@ -1,0 +1,56 @@
+import 'package:flutter/material.dart';
+import 'package:schedule_mpt/constants_images/constants.dart';
+import 'package:schedule_mpt/constants_images/theme.dart';
+import 'package:schedule_mpt/feature/presentation/call_schedule/widgets/call_widget.dart';
+import 'package:schedule_mpt/feature/presentation/groups_page.dart/view/groups_page.dart';
+
+class CallSchedulePage extends StatelessWidget {
+  const CallSchedulePage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: SafeArea(
+        child: ScrollConfiguration(
+          behavior: MyBehavior(),
+          child: ListView(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(top: 37, left: 15, bottom: 27),
+                child: Row(
+                  children: [
+                    GestureDetector(
+                      onTap: () => Navigator.of(context).pop(),
+                      child: Icon(
+                        Icons.arrow_back_ios_new_rounded,
+                        color: Theme.of(context).brightness == Brightness.dark
+                            ? Colors.white
+                            : Colors.black,
+                      ),
+                    ),
+                    const SizedBox(
+                      width: 20,
+                    ),
+                    CustomText(
+                      fontSize: 20,
+                      title: 'Расписание звонков',
+                      color: Theme.of(context).brightness == Brightness.dark
+                          ? Colors.white
+                          : Colors.black,
+                    ),
+                  ],
+                ),
+              ),
+              ...List.generate(
+                TimeLessons.calls.length,
+                (index) => CallWidgets(
+                  index: index,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}

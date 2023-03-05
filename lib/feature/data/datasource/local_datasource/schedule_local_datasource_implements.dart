@@ -71,7 +71,7 @@ class ScheduleLocalDatasorceImplement implements ScheduleLocalDatasource {
   Future<void> saveGroup(String group) async {
     await sharedPreferences.setString(SAVED_USER_GROUP, group);
   }
-q
+
   @override
   Future<String> getGroup() async {
     final group = sharedPreferences.getString(SAVED_USER_GROUP);

@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:provider/provider.dart';
 import 'package:schedule_mpt/constants_images/theme.dart';
-import 'package:schedule_mpt/core/helpers/themes/provider/theme_provider.dart';
 
 class ThemeCard extends StatefulWidget {
   final String title;

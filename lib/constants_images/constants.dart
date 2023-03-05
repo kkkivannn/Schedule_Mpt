@@ -40,6 +40,7 @@ class WeekScheduleDay {
     'Суббота',
     'Воскресение',
   ];
+
 }
 
 class Months {
@@ -70,6 +71,13 @@ class TimeLessons {
     '15:30\n17:00',
     "",
   ];
+  static List<TimesCall> calls = [
+    TimesCall(id: 1, time: '08:30  \u279E  10:00'),
+    TimesCall(id: 2, time: '10:10  \u279E  11:40'),
+    TimesCall(id: 3, time: '12:00  \u279E  13:30'),
+    TimesCall(id: 4, time: '13:50  \u279E  15:20'),
+    TimesCall(id: 5, time: '15:30  \u279E  17:00'),
+  ];
 }
 
 class WeekDayForReview {
@@ -83,4 +91,11 @@ class WeekDayForReview {
     5,
     6,
   ];
+}
+
+class TimesCall {
+  final int id;
+  final String time;
+
+  TimesCall({required this.id, required this.time});
 }

@@ -14,8 +14,8 @@ class HomePageEmptyState extends HomePageState{
 }
 
 class HomePageLoadedState extends HomePageState {
-  List<ScheduleEntiti>? scheduleEntiti;
-  WeekEntiti? weekEntiti;
+  final List<ScheduleEntiti>? scheduleEntiti;
+  final WeekEntiti? weekEntiti;
 
   HomePageLoadedState({ this.scheduleEntiti,  this.weekEntiti});
   @override

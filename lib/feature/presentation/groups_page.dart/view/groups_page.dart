@@ -39,6 +39,9 @@ class _GroupsPageState extends State<GroupsPage> {
         }
         if (state is GroupsLoadedState) {
           return Scaffold(
+            backgroundColor: Theme.of(context).brightness == Brightness.dark
+                ? const Color(0xff282720)
+                : Colors.white,
             body: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -65,7 +68,9 @@ class _GroupsPageState extends State<GroupsPage> {
                       fontSize: 18,
                       fontWeight: FontWeight.w400,
                       textAlign: TextAlign.center,
-                      color: Colors.black,
+                      color: Theme.of(context).brightness == Brightness.dark
+                          ? Colors.white
+                          : Colors.black,
                     ),
                   ),
                 ),

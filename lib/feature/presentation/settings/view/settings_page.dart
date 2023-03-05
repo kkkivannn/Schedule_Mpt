@@ -8,7 +8,6 @@ import 'package:schedule_mpt/constants_images/constants.dart';
 import 'package:schedule_mpt/constants_images/theme.dart';
 import 'package:schedule_mpt/core/helpers/functions.dart';
 import 'package:schedule_mpt/core/helpers/themes/provider/theme_provider.dart';
-import 'package:schedule_mpt/core/helpers/values.dart';
 import 'package:schedule_mpt/feature/presentation/groups_page.dart/view/groups_page.dart';
 import 'package:schedule_mpt/feature/presentation/home_page/controller/home_page_cubit.dart';
 import 'package:schedule_mpt/feature/presentation/home_page/controller/home_page_state.dart';
@@ -55,9 +54,10 @@ class _SettingsPageState extends State<SettingsPage> {
                         child: CustomText(
                           title: 'Настройки',
                           fontSize: 20,
-                          color: Theme.of(context).brightness == Brightness.dark
-                              ? Colors.white
-                              : Colors.black,
+                          color:
+                              Theme.of(context).brightness == Brightness.dark
+                                  ? Colors.white
+                                  : Colors.black,
                         ),
                       ),
                       SettingCardWidget(
@@ -72,9 +72,9 @@ class _SettingsPageState extends State<SettingsPage> {
                                 .read<HomePageCubit>()
                                 .getSpecialities()),
                       ),
-                      Padding(
-                        padding:
-                            const EdgeInsets.only(top: 40, left: 23, bottom: 5),
+                      const Padding(
+                        padding: EdgeInsets.only(
+                            top: 40, left: 23, bottom: 5),
                         child: CustomText(
                           title: 'Общая инфомация',
                           color: Colors.grey,
@@ -84,11 +84,15 @@ class _SettingsPageState extends State<SettingsPage> {
                       ),
                       SettingCardWidget(
                         title: 'Расписание звонков',
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.pushNamed(context, '/CallSchedule');
+                        },
                       ),
                       SettingCardWidget(
                         title: 'Расписание экзаменов',
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.pushNamed(context, '/ExamSchedulePage');
+                        },
                       ),
                       SettingCardWidget(
                         title: 'Заказать справку ',
@@ -101,9 +105,9 @@ class _SettingsPageState extends State<SettingsPage> {
                           }
                         },
                       ),
-                      Padding(
-                        padding:
-                            const EdgeInsets.only(top: 30, left: 23, bottom: 5),
+                      const Padding(
+                        padding: EdgeInsets.only(
+                            top: 30, left: 23, bottom: 5),
                         child: CustomText(
                           title: 'Тема оформления ',
                           color: Colors.grey,
@@ -157,7 +161,8 @@ class _SettingsPageState extends State<SettingsPage> {
                                 title: 'Системная',
                                 icon: SvgImg.system,
                                 data: snapshot.data!,
-                                isSelected: snapshot.data! == 2 ? true : false,
+                                isSelected:
+                                    snapshot.data! == 2 ? true : false,
                               ),
                             ),
                           ],

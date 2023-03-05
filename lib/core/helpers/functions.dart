@@ -42,6 +42,8 @@ class BottomSheets {
   }
 }
 
+
+
 Future<void> onPageChange(int value) async {
   if (prevIndex == 0 && value == 1) {
     if (weekDay == 6 || weekDayAppBar == 7) {

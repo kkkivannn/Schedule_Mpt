@@ -10,4 +10,5 @@ abstract class ScheduleRemoteDatasource {
   Future<SpecialitiesDto> getSpecialities(String endpoint);
   Future<GroupsDto> getGroups(String endpoint);
   Future<ReplacementDto> getReplacement(String endpoint);
+  
 }

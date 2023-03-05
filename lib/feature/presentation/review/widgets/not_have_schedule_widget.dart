@@ -19,7 +19,7 @@ class NotHaveScheduleWidget extends StatelessWidget {
             ? const Color(0xff282720)
             : const Color(0xffEAE9E5),
       ),
-      child: CustomText(
+      child: const CustomText(
         title: 'На этот день занятий нет',
         fontSize: 15,
         fontWeight: FontWeight.w400,

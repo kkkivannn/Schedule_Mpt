@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:schedule_mpt/constants_images/constants.dart';
-import 'package:schedule_mpt/core/helpers/values.dart';
 import 'package:schedule_mpt/feature/presentation/review/view/review_page.dart';
 import 'package:schedule_mpt/feature/presentation/schedule/view/schedule_page.dart';
 import 'package:schedule_mpt/feature/presentation/settings/view/settings_page.dart';
@@ -37,11 +36,22 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
+    // Size size = MediaQuery.of(context).size;
     return BlocBuilder<ScheduleBuilderCubit, ScheduleBuilderState>(
       builder: (context, state) {
         if (state is IsHaveSchedule) {
           return Scaffold(
+            
+            // backgroundColor: state.weekEntiti.week == "Числитель" &&
+            //         Theme.of(context).brightness == Brightness.dark
+            //     ? const Color(0xffCB9292)
+            //     : state.weekEntiti.week == "Знаменатель" &&
+            //             Theme.of(context).brightness == Brightness.dark
+            //         ? const Color(0xff7398B2)
+            //         : state.weekEntiti.week == "Числитель" &&
+            //                 Theme.of(context).brightness == Brightness.light
+            //             ? const Color(0xffFCEAEA)
+            //             : const Color(0xffECF2F9),
             bottomNavigationBar: BottomNavigationBar(
               onTap: _onItemTapped,
               currentIndex: _selectedIndex,

@@ -27,6 +27,9 @@ class _SpecialitiesPageState extends State<SpecialitiesPage> {
           context.read<SpecialitiesCubit>().fetchSpecialities("/specialities");
         } else if (state is SpecialitiesLoadedState) {
           return Scaffold(
+            backgroundColor: Theme.of(context).brightness == Brightness.dark
+                ? const Color(0xff282720)
+                : Colors.white,
             body: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -40,7 +43,9 @@ class _SpecialitiesPageState extends State<SpecialitiesPage> {
                       fontSize: 18,
                       fontWeight: FontWeight.w400,
                       textAlign: TextAlign.center,
-                      color: Colors.black,
+                      color: Theme.of(context).brightness == Brightness.dark
+                          ? Colors.white
+                          : Colors.black,
                     ),
                   ),
                 ),

@@ -81,9 +81,9 @@ dev_dependencies:
   flutter_lints: ^2.0.0
   build_runner: ^2.3.2
 flutter_native_splash:
-  image: assets/images/splash_light.png
+  image: assets/images/Splash.png
   color: "#f9f9f9"
-  image_dark: assets/images/splash_night.png
+  image_dark: assets/images/Splash.png
   color_dark: "#000000"
   android_12: 
     color: "#f9f9f9"

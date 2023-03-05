@@ -1,21 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:schedule_mpt/constants_images/theme.dart';
-import 'package:schedule_mpt/feature/domain/entiti/schedule/schedule_entiti/schedule_entiti.dart';
 import 'package:schedule_mpt/feature/presentation/components/controller/schedule_builder_cubit.dart';
 import 'package:schedule_mpt/feature/presentation/home_page/controller/home_page_cubit.dart';
-import 'package:schedule_mpt/feature/presentation/home_page/controller/home_page_state.dart';
 import 'package:schedule_mpt/feature/presentation/review/widgets/not_have_replacement_widget.dart';
 import 'package:schedule_mpt/feature/presentation/review/widgets/not_have_schedule_widget.dart';
 import 'package:schedule_mpt/feature/presentation/review/widgets/schedule_card_widget.dart';
-
-import '../../../../core/helpers/values.dart';
 import '../../components/controller/schedule_builder_state.dart';
 
 class Schedule extends StatefulWidget {
-  int? itemPage;
-  Schedule({
+  final int? itemPage;
+  final String week;
+  const Schedule({
     this.itemPage,
+    required this.week,
     super.key,
   });
 
@@ -66,7 +64,8 @@ class _ScheduleState extends State<Schedule> {
                                     ? Colors.white
                                     : Colors.black,
                               ),
-                              state.scheduleEntiti.length > 5 && widget.itemPage! == 5
+                              state.scheduleEntiti.length > 5 &&
+                                      widget.itemPage! == 5
                                   ? CustomText(
                                       title:
                                           "(${state.scheduleEntiti[widget.itemPage!].info.place})",
@@ -96,21 +95,27 @@ class _ScheduleState extends State<Schedule> {
                           ),
                         ),
                         ...List.generate(
-                          state.scheduleEntiti.length > 5 && widget.itemPage! == 5
-                              ? state.scheduleEntiti[widget.itemPage!].subjects.length
-                              : state.scheduleEntiti.length == 5 && widget.itemPage! == 5
+                          state.scheduleEntiti.length > 5 &&
+                                  widget.itemPage! == 5
+                              ? state.scheduleEntiti[widget.itemPage!].subjects
+                                  .length
+                              : state.scheduleEntiti.length == 5 &&
+                                      widget.itemPage! == 5
                                   ? 1
                                   : widget.itemPage! == 6
                                       ? 1
-                                      : state.scheduleEntiti[widget.itemPage!].subjects
-                                          .length,
-                          (i) => state.scheduleEntiti.length > 5 && widget.itemPage! == 5
+                                      : state.scheduleEntiti[widget.itemPage!]
+                                          .subjects.length,
+                          (i) => state.scheduleEntiti.length > 5 &&
+                                  widget.itemPage! == 5
                               ? ScheduleCardWidget(
                                   scheduleEntiti: state.scheduleEntiti,
                                   weekDay: widget.itemPage!,
                                   index: i,
+                                  week: widget.week,
                                 )
-                              : state.scheduleEntiti.length == 5 && widget.itemPage! == 5
+                              : state.scheduleEntiti.length == 5 &&
+                                      widget.itemPage! == 5
                                   ? const NotHaveScheduleWidget()
                                   : widget.itemPage! == 6
                                       ? const NotHaveScheduleWidget()
@@ -118,6 +123,7 @@ class _ScheduleState extends State<Schedule> {
                                           scheduleEntiti: state.scheduleEntiti,
                                           weekDay: widget.itemPage!,
                                           index: i,
+                                          week: widget.week,
                                         ),
                         ),
                         Padding(

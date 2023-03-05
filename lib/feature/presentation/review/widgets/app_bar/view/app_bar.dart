@@ -30,11 +30,6 @@ class _AppBarWidgetState extends State<AppBarWidget> {
             width: size.width,
             height: 110,
             decoration: BoxDecoration(
-              // color: Colors.grey,
-              // borderRadius: BorderRadius.vertical(
-              //   bottom:
-              //       Radius.elliptical(MediaQuery.of(context).size.width, 75),
-              // ),
               image: DecorationImage(
                 image: AssetImage(
                   widget.week == "Числитель" &&
@@ -63,7 +58,7 @@ class _AppBarWidgetState extends State<AppBarWidget> {
                     color: Theme.of(context).brightness == Brightness.dark
                         ? Colors.white
                         : Colors.black,
-                    fontSize: 20,
+                    fontSize: 25,
                     fontWeight: FontWeight.w400,
                   ),
                 ),
@@ -78,7 +73,7 @@ class _AppBarWidgetState extends State<AppBarWidget> {
                       color: Theme.of(context).brightness == Brightness.dark
                           ? Colors.white
                           : Colors.black,
-                      fontSize: 20,
+                      fontSize: 15,
                       fontWeight: FontWeight.w400,
                     ),
                     CustomText(
@@ -86,7 +81,7 @@ class _AppBarWidgetState extends State<AppBarWidget> {
                       color: Theme.of(context).brightness == Brightness.dark
                           ? Colors.white
                           : Colors.black,
-                      fontSize: 20,
+                      fontSize: 15,
                       fontWeight: FontWeight.w400,
                     ),
                   ],
@@ -125,7 +120,7 @@ class _AppBarWidgetState extends State<AppBarWidget> {
                 color: Theme.of(context).brightness == Brightness.dark
                     ? Colors.white
                     : Colors.black,
-                fontSize: 20,
+                fontSize: 25,
                 fontWeight: FontWeight.w400,
               ),
               const SizedBox(
@@ -139,7 +134,7 @@ class _AppBarWidgetState extends State<AppBarWidget> {
                     color: Theme.of(context).brightness == Brightness.dark
                         ? Colors.white
                         : Colors.black,
-                    fontSize: 20,
+                    fontSize: 15,
                     fontWeight: FontWeight.w400,
                   ),
                   CustomText(
@@ -147,7 +142,7 @@ class _AppBarWidgetState extends State<AppBarWidget> {
                     color: Theme.of(context).brightness == Brightness.dark
                         ? Colors.white
                         : Colors.black,
-                    fontSize: 20,
+                    fontSize: 15,
                     fontWeight: FontWeight.w400,
                   ),
                 ],

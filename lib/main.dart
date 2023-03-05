@@ -33,7 +33,6 @@ Future<void> main() async {
   HydratedBloc.storage = await HydratedStorage.build(
     storageDirectory: await getApplicationDocumentsDirectory(),
   );
-
   runApp(
     ChangeNotifierProvider<UserThemeProvider>(
       create: (_) => UserThemeProvider()..initialize(),
@@ -41,7 +40,6 @@ Future<void> main() async {
     ),
   );
   await frameRate();
-
 }
 
 class MyApp extends StatefulWidget {
