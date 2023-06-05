@@ -14,6 +14,7 @@ import 'package:schedule_mpt/feature/presentation/home_page/controller/home_page
 import 'package:schedule_mpt/feature/presentation/review/widgets/app_bar/controller/app_bar_cubit.dart';
 import 'package:schedule_mpt/feature/presentation/specialities_page.dart/controller/specialities_page_cubit.dart';
 import 'package:schedule_mpt/rout_generator.dart';
+
 import 'injection.container.dart' as di;
 import 'injection.container.dart';
 
@@ -39,7 +40,7 @@ Future<void> main() async {
       child: const MyApp(),
     ),
   );
-  await frameRate();
+  // await frameRate();
 }
 
 class MyApp extends StatefulWidget {
